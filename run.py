@@ -6,14 +6,9 @@ app = Flask(__name__)
 def index():
     return "Index!"
 
-@app.route("/hello")
-def hello():
-    return "Hello World!"
-
 @app.route("/hello/<string:name>/")
 def hello(name):
     return render_template('test.html',name=name)
-
 
 @app.route("/members")
 def members():
