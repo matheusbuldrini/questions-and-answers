@@ -1,6 +1,7 @@
 # Q&A
 
  - Matheus Buldrini
+ - Fernanda Fenelon
 
 ## Running
 
