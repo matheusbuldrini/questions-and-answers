@@ -2,6 +2,7 @@
 
  - Matheus Buldrini
  - Fernanda Fenelon
+ - Fernanda Guimarães
 
 ## Running
 
