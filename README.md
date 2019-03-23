@@ -1,4 +1,4 @@
-# Q&A
+# Q&A - Tests branch
 
  - Matheus Buldrini
  - Fernanda Fenelon
@@ -11,4 +11,5 @@ https://eswqa.herokuapp.com/
 ## Deploying to Heroku
 Automatically deploys from master
 
-<!-- Tests branch -->
+
+
