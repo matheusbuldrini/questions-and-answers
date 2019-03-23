@@ -1,8 +1,9 @@
-# Q&A
+﻿# Q&A
 
  - Matheus Buldrini
  - Fernanda Fenelon
  - Fernanda Guimarães
+ - Eduardo Oliveira
 
 ## Running
 
