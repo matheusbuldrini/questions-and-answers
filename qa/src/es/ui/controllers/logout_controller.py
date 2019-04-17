@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
 
-class Logout_controller:
+class LogoutController:
     def __init__(self, args):
         "docstring"

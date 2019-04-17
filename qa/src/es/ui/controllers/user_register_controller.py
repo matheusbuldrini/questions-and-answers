@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
 
-class User_register_controller:
+class UserRegisterController:
     def __init__(self, args):
         "docstring"

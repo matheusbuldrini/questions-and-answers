@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
 
-class Votes_controller:
+class VotesController:
     def __init__(self, args):
         "docstring"
