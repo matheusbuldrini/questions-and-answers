@@ -2,17 +2,16 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import os
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    return "Index!"
+@app.route("/")	
+@app.route("/home")
+def home():
+	perguntas = [{'id': 1, 'titulo': 'primeira perg', 'desc': 'bla bla bla'}, {'id': 2, 'titulo': 'segunda perg', 'desc': 'mais bla bla bla'}]
+	return render_template('home.html', perguntas=perguntas)
 
-@app.route("/hello/<string:name>/")
-def hello(name):
-    return render_template('test.html',name=name)
-
-@app.route("/members")
-def members():
-    return "Members"
+@app.route("/pergunta/<string:pergunta_id>/")
+def hello(pergunta_id):
+    return render_template('pergunta.html',pergunta_id=pergunta_id)
+	
 
 if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5000.

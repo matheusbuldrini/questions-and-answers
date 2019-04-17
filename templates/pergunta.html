@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Pile Underflow</h1>
+      <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-2">
+        <ul class="nav flex-column">
+		  <li class="nav-item">
+			<a class="nav-link active" href="#">Início</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="#">Minha Conta</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="#">Outros Usuários</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link disabled" href="#">Jobs</a>
+		  </li>
+		</ul>
+      </div>
+      <div class="col-md-7">
+		<div class="card">
+		<div class="card-body">
+			<h2 class="card-title">Carregar pergunta com id {{ pergunta_id }} do banco</h2> 
+			<p class="card-text">Estou usando ubuntu e queria abir o mspaint. Como posso fazer?
+			<br>Já tentei até criar um programa em java:
+			<br>
+			<br>class A {
+			 <br>public static void main(String args[]){
+			 <br>    System.out.println("Hello World");
+			 <br>}
+			<br>}
+	
+
+			</p>
+			<button class="btn btn-primary btn-icon btn-round">
+			  <i class="now-ui-icons arrows-1_minimal-up"></i>
+			</button>
+			<button class="btn btn-primary btn-icon btn-round">
+			  <i class="now-ui-icons arrows-1_minimal-down"></i>
+			</button>
+		</div>
+		</div>
+		<div class="card">
+		<div class="card-body">
+			<blockquote class="blockquote blockquote-primary mb-0">
+				<p class="card-text">Eu sou a melhor resposta. Me respeitem!</p>
+				<button class="btn btn-primary btn-icon btn-round">
+				  <i class="now-ui-icons arrows-1_minimal-up"></i>
+				</button>
+				<button class="btn btn-primary btn-icon btn-round">
+				  <i class="now-ui-icons arrows-1_minimal-down"></i>
+				</button>
+			</blockquote>
+		</div>
+		</div>
+		<div class="card">
+		<div class="card-body">
+			<p class="card-text">Tenta em C, ninguem usa java hoje em dia!</p>
+			<button class="btn btn-primary btn-icon btn-round">
+			  <i class="now-ui-icons arrows-1_minimal-up"></i>
+			</button>
+			<button class="btn btn-primary btn-icon btn-round">
+			  <i class="now-ui-icons arrows-1_minimal-down"></i>
+			</button>
+		</div>
+		</div>
+		<div class="card">
+		<div class="card-body">
+			<p class="card-text">C também não pô, faz em Python!</p>
+			<button class="btn btn-primary btn-icon btn-round">
+			  <i class="now-ui-icons arrows-1_minimal-up"></i>
+			</button>
+			<button class="btn btn-primary btn-icon btn-round">
+			  <i class="now-ui-icons arrows-1_minimal-down"></i>
+			</button>
+		</div>
+		</div>
+      </div>
+      <div class="col-md-3">
+	  <h2>Tendências</h2>
+	  <div class="card">
+		  
+		  
+		  <ul class="list-group list-group-flush">
+			<li class="list-group-item">Como abrir o paint?</li>
+			<li class="list-group-item">Apaguei a system32, o que fazer?</li>
+			<li class="list-group-item">Como vender bitcoin?</li>
+		  </ul>
+		</div>
+      </div>
+    </div>
+
+    <hr>
+
+  </div> <!-- /container -->
+{% endblock %}
