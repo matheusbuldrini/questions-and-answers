@@ -12,6 +12,13 @@ def home():
 @app.route("/pergunta/<int:pergunta_id>/")
 def pergunta(pergunta_id):
     return render_template('pergunta.html',pergunta_id=pergunta_id)
+	
+@app.route("/cadastro", methods=['GET', 'POST'])
+def cadastro():
+    if request.method == 'POST':
+        return str(request.form)
+    else:
+        return render_template('cadastro.html')
 
 @app.route("/testdb/")
 def testdb():
