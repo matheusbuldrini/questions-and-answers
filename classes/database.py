@@ -9,8 +9,8 @@
 #Username: sql10288957
 #Password: jervEuXDVq
 #Port number: 3306
-
 import pymysql
+
 
 class Database:
     def __init__(self):
@@ -21,10 +21,12 @@ class Database:
         self.con = pymysql.connect(host=host, user=user, password=password, db=db, cursorclass=pymysql.cursors.DictCursor, autocommit=True)
         self.cur = self.con.cursor()
 
+
     def list(self, sql):
         #returns list of elements
         self.cur.execute(str(sql))
         return self.cur.fetchall()
+
 
     def sql(self, sql):
         #returns number of affected items
