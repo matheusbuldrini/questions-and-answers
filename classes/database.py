@@ -26,7 +26,7 @@ class Database:
                                    autocommit=True)
         self.cur = self.con.cursor()
 
-    def list(self, sql):
+    def get_list(self, sql):
         # returns list of elements
         self.cur.execute(str(sql))
         return self.cur.fetchall()
