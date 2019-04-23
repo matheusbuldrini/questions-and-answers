@@ -28,4 +28,5 @@ class Database:
 
     def sql(self, sql):
         #returns number of affected items
+        #print(sql)
         return self.cur.execute(str(sql))

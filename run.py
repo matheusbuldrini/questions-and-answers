@@ -1,6 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import os
 import classes.Database as Database
+import classes.User as User
 app = Flask(__name__)
 
 @app.route("/")
@@ -16,7 +17,8 @@ def pergunta(pergunta_id):
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
-        return str(request.form)
+        user = User.User()
+        return str(user.insert(request.form['nickname'], request.form['password']))
     else:
         return render_template('cadastro.html')
 
