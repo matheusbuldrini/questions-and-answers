@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
+{% set active_page = "home" %}
 {% block content %}
 
         <h2>Perguntas Recentes</h2>
-		
+
 		{% for perg in perguntas %}
 		<a class="card" href="pergunta/{{ perg.id }}">
 		<div class="card-body">
-			<h4 class="card-subtitle">{{ perg.titulo }}</h4> 
+			<h4 class="card-subtitle">{{ perg.titulo }}</h4>
 			<p class="card-text">{{ perg.desc }}</p>
 			<span href="#" class="card-link">ID: {{ perg.id }}</span>
 			<span href="#" class="card-link">1 bi visualizações</span>
