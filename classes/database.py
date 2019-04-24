@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Username: h0X0rG27Cf
 # Password: X5vM8SVTEO
 # Database Name: h0X0rG27Cf
@@ -26,12 +28,12 @@ class Database:
                                    autocommit=True)
         self.cur = self.con.cursor()
 
-    def get_list(self, sql):
+    def query(self, sql_query):
         # returns list of elements
-        self.cur.execute(str(sql))
+        self.cur.execute(str(sql_query))
         return self.cur.fetchall()
 
-    def sql(self, sql):
+    def affected_rows(self, sql_query):
         # returns number of affected items
         # print(sql)
-        return self.cur.execute(str(sql))
+        return self.cur.execute(str(sql_query))
