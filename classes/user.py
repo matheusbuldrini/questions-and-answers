@@ -1,9 +1,9 @@
-import classes.database as Database
+from database import Database
 
 
 class User:
     def __init__(self):
-        self.db = Database.Database()
+        self.db = Database()
 
     def _select_all(self):
         return self.db.query('SELECT * FROM user')
@@ -16,6 +16,9 @@ class User:
 
     def _insert(self, fullname, email, password):
         return self.db.sql('INSERT INTO user(fullname, email, password) VALUES ("' + fullname + '", "' + email + '", "' + password + '")')
+
+    def _delete_user(self, email, password):
+        return self.db.sql('DELETE FROM user WHERE email = "' + email + '" AND password = "' + password + '"')
 
     def validate_register(self, fullname, email, password):
         if self._select_count_by_email(email) == 0:
