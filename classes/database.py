@@ -33,7 +33,7 @@ class Database:
         self.cur.execute(str(sql_query))
         return self.cur.fetchall()
 
-    def affected_rows(self, sql_query):
+    def sql(self, sql_query):
         # returns number of affected items
         # print(sql)
         return self.cur.execute(str(sql_query))
