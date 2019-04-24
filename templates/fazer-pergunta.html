@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% set active_page = "fazer-pergunta" %}
+{% block content %}
+<h2>Pergunte</h2>
+<div class="card card-login card-plain">
+            <form class="form" method="POST" action="/fazer-pergunta">
+              <div class="card-body">
+                <div class="input-group no-border input-lg">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </span>
+                  </div>
+                  <input type="text" name="title" class="form-control" placeholder="Pergunta">
+                </div>
+                <div class="input-group no-border input-lg">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons ui-1_email-85"></i>
+                    </span>
+                  </div>
+                  <input type="text" name="body" class="form-control" placeholder="Descreva melhor">
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <input type="submit" value="Enviar" class="btn btn-primary btn-round btn-lg btn-block">
+            </div></form>
+          </div>
+
+{% endblock %}
