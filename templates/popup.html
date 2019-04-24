@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% set active_page = "popup" %}
+{% block content %}
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<h2>You shall not pass!</h2>
+    <div class="btn-group">
+      <p><a class="btn btn-primary btn-lg" href="/home" role="button">Home &raquo;</a></p>
+      <p><a class="btn btn-primary btn-lg" href="/login" role="button">Tente Novamente &raquo;</a></p>
+    </div>
+	</div>
+{% endblock %}
