@@ -1,22 +1,14 @@
 {% extends "layout.html" %}
-{% set active_page = "cadastro" %}
+{% set active_page = "login" %}
 {% block content %}
-<h2>Cadastre-se</h2>
+<h2>Entre</h2>
 <div class="card card-login card-plain">
-            <form class="form" method="POST" action="cadastro">
+            <form class="form" method="POST" action="login">
               <div class="card-body">
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="now-ui-icons users_circle-08"></i>
-                    </span>
-                  </div>
-                  <input type="text" name="fullname" class="form-control" placeholder="Nome Completo">
-                </div>
-                <div class="input-group no-border input-lg">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="now-ui-icons ui-1_email-85"></i>
                     </span>
                   </div>
                   <input type="email" name="email" class="form-control" placeholder="Email">
@@ -31,10 +23,10 @@
                 </div>
               </div>
               <div class="card-footer text-center">
-                <input type="submit" value="Cadastrar" class="btn btn-primary btn-round btn-lg btn-block">
+                <input type="submit" value="Entrar" class="btn btn-primary btn-round btn-lg btn-block">
                 <div class="pull-left">
                   <h6>
-                    <a href="login" class="link">Login</a>
+                    <a href="cadastro" class="link">Cadastrar</a>
                   </h6>
                 </div>
             </div></form>
