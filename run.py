@@ -1,25 +1,34 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 import os
 import classes.user as User
+import classes.answer as Answer
 
 
 app = Flask(__name__)
 app.secret_key = 'any random string'
 
-
 @app.route("/")
 @app.route("/home")
 def home():
     perguntas = [{'id': 1, 'titulo': 'primeira perg', 'desc': 'bla bla bla'}, {'id': 2, 'titulo': 'segunda perg', 'desc': 'mais bla bla bla'}]
+
     return render_template('home.html', perguntas=perguntas)
 
 @app.route('/login/unsuccessful')
 def login_popup():
     return render_template('popup.html')
 
-@app.route("/pergunta/<int:pergunta_id>/")
+@app.route("/pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
 def pergunta(pergunta_id):
-    return render_template('pergunta.html', pergunta_id=pergunta_id)
+    if request.method == 'POST':
+        answer = Answer.Answer()
+        pass
+        # return str(answer._insert(pergunta_id, "1", request.form['resposta']))
+    else:
+        answer = Answer.Answer()
+        respostas = answer._select_all_by_questionid(str(pergunta_id))
+        return render_template('pergunta.html', pergunta_id=pergunta_id,
+                               respostas=respostas)
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
