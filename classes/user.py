@@ -22,6 +22,9 @@ class User:
     def _select_id_by_email_password(self, email, password):
         return self.db.query('SELECT iduser FROM User WHERE email = "' + email + '" AND password = "' + password + '"')
 
+    def _select_all_by_userid(self, userid):
+        return self.db.query('SELECT * FROM User WHERE iduser = "' + userid + '"')
+
     def validate_register(self, fullname, email, password):
         if self._select_count_by_email(email) == 0:
             if self._insert(fullname, email, password) == 1:
