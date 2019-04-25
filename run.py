@@ -55,12 +55,12 @@ def fazer_pergunta():
 
 @app.route("/minha-conta")
 def minha_conta():
-    if not session.get('logged_user_id'):
-        return render_template('login.html')
-    else:
+    if session.get('logged_user_id'):
         user = User.User()
-        data = user._select_all_by_userid(str(session.get('logged_user_id')))
-        return render_template('minha-conta.html', data = data)
+        data = user.get_by_id(str(session.get('logged_user_id')))
+        if data:
+            return render_template('minha-conta.html', data = data)
+    return redirect(url_for('login'))
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

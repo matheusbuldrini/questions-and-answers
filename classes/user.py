@@ -24,6 +24,13 @@ class User:
 
     def _select_all_by_userid(self, userid):
         return self.db.query('SELECT * FROM User WHERE iduser = "' + userid + '"')
+		
+    def get_by_id(id):
+        data = self._select_all_by_userid(id)
+        if len(data) == 1:
+            return data[0]
+        else:
+            return False
 
     def validate_register(self, fullname, email, password):
         if self._select_count_by_email(email) == 0:
