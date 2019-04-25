@@ -53,15 +53,18 @@
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
+      {% if session['logged_user_id'] %}
+      <li class="nav-item">
+        <a class="nav-link" href="/sair">Sair</a>
+      </li>
+      {% else %}
       <li class="nav-item {% if active_page == "login" %} active {% endif%}">
         <a class="nav-link" href="/login">Login</a>
       </li>
       <li class="nav-item {% if active_page == "cadastro" %} active {% endif%}">
         <a class="nav-link" href="/cadastro">Cadastro</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/sair">Sair</a>
-      </li>
+      {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" aria-label="Pesquisar">
@@ -76,7 +79,7 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">ESWQA</h1>
-      <p>Bem vindo, {{  session['logged_user_email'] }}</p>
+      <p>Bem vindo, {{  session['logged_user_id'] }}</p>
       <p><a class="btn btn-primary btn-lg" href="/cadastro" role="button">Cadastrar &raquo;</a></p>
     </div>
   </div>
@@ -96,7 +99,7 @@
 		  </li>
 		  <li class="nav-item">
 			<a class="nav-link" href="/usuarios">Outros Usuários</a>
-		  </li>		  
+		  </li>
 		  <li class="nav-item">
 			<a class="nav-link" href="/fazer-pergunta">Fazer pergunta</a>
 		  </li>
