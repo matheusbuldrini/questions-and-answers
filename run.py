@@ -56,7 +56,7 @@ def minha_conta():
         return render_template('login.html')
     else:
         user = User.User()
-        data = user._select_all_by_userid(session.get('logged_user_id'))
+        data = user._select_all_by_userid(str(session.get('logged_user_id')))
         return render_template('minha-conta.html', data = data)
 
 @app.route("/login", methods=['GET', 'POST'])
