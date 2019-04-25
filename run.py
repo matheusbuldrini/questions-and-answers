@@ -63,7 +63,7 @@ def login():
         user = User.User()
         if user.validate_login(request.form['email'], request.form['password']):
             session['logged_user_id'] =  user._select_id_by_email_password(request.form['email'], request.form['password'])
-            return render_template('home.html')
+            return redirect(url_for('home'))
         else:
             return redirect(url_for('login_popup'))
             # return "Erro ao logar"
