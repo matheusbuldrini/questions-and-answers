@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session, abort, url_for, array
+from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 import os
 import classes.user as User
 import classes.answer as Answer
