@@ -30,5 +30,5 @@ class User:
 
     def validate_login(self, email, password):
         if self._select_count_by_email_password(email, password) == 1:
-            return _select_id_by_email_password(email, password)
+            return self._select_id_by_email_password(email, password)
         return False

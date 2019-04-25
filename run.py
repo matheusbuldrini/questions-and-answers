@@ -53,7 +53,7 @@ def fazer_pergunta():
 @app.route("/minha-conta")
 def minha_conta():
     if not session.get('logged_user_id'):
-        return render_template('slogin.html')
+        return render_template('login.html')
     else:
         return render_template('minha-conta.html')
 
