@@ -62,8 +62,8 @@ def login():
     if request.method == 'POST':
         user = User.User()
         if user.validate_login(request.form['email'], request.form['password']):
-            session['logged_user_id'] = request.form['email']
-            return "Logado com sucesso!"
+            session['logged_user_id'] =  user._select_id_by_email_password(request.form['email'], request.form['password'])
+            return render_template('home.html')
         else:
             return redirect(url_for('login_popup'))
             # return "Erro ao logar"

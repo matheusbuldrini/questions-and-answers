@@ -20,7 +20,7 @@ class User:
         return self.db.sql('DELETE FROM User WHERE email = "' + email + '" AND password = "' + password + '"')
 
     def _select_id_by_email_password(self, email, password):
-        return int(self.db.query('SELECT iduser FROM User WHERE email = "' + email + '" AND password = "' + password + '"'))
+        return self.db.query('SELECT iduser FROM User WHERE email = "' + email + '" AND password = "' + password + '"')
 
     def validate_register(self, fullname, email, password):
         if self._select_count_by_email(email) == 0:
@@ -30,5 +30,5 @@ class User:
 
     def validate_login(self, email, password):
         if self._select_count_by_email_password(email, password) == 1:
-            return self._select_id_by_email_password(email, password)
+            return True
         return False
