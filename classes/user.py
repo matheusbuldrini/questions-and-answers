@@ -20,7 +20,7 @@ class User:
         return self.db.sql('DELETE FROM User WHERE email = "' + email + '" AND password = "' + password + '"')
 
     def _select_id_by_email(self, email):
-        return self.db.query('SELECT iduser FROM User WHERE email = "' + email + '"')
+        return self.db.query('SELECT iduser FROM User WHERE email = "' + email + '"')[0]['iduser']
 
     def _select_all_by_userid(self, userid):
         return self.db.query('SELECT * FROM User WHERE iduser = "' + userid + '"')

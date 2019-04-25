@@ -71,7 +71,6 @@ def login():
             return redirect(url_for('home'))
         else:
             return redirect(url_for('login_popup'))
-            # return "Erro ao logar"
     else:
         return render_template('login.html')
 
