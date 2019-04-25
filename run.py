@@ -22,8 +22,12 @@ def login_popup():
 def pergunta(pergunta_id):
     if request.method == 'POST':
         answer = Answer.Answer()
-        pass
-        # return str(answer._insert(pergunta_id, "1", request.form['resposta']))
+        respostas = answer._select_all_by_questionid(str(pergunta_id))
+        answer_form = request.form['resposta']
+        answer._insert(str(pergunta_id), "1", answer_form)
+        answer_form = None
+        return render_template('pergunta.html', pergunta_id=pergunta_id,
+                                   respostas=respostas)
     else:
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
