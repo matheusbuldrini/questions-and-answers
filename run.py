@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
+from flask import Flask, flash, redirect, render_template, request, session, abort, url_for, array
 import os
 import classes.user as User
 import classes.answer as Answer
@@ -35,7 +35,7 @@ def cadastro():
     if request.method == 'POST':
         user = User.User()
         if user.validate_register(request.form['fullname'], request.form['email'], request.form['password']):
-            session['logged_user_id'] = request.form['email']
+            session['logged_user_id'] = user._select_id_by_email(request.form['email'])
             return render_template('minha-conta.html')
         else:
             return render_template('cadastro.html')
@@ -56,17 +56,15 @@ def minha_conta():
         return render_template('login.html')
     else:
         user = User.User()
-        data = user._select_all_by_userid(str(session.get('logged_user_id')))
-        return render_template('minha-conta.html', usuario_id=session.get('logged_user_id'),
-                               data=data)
-        #return render_template('minha-conta.html', data = data)
+        data = user._select_all_by_userid(session.get('logged_user_id'))
+        return render_template('minha-conta.html', data = data)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user = User.User()
         if user.validate_login(request.form['email'], request.form['password']):
-            session['logged_user_id'] =  user._select_id_by_email_password(request.form['email'], request.form['password'])
+            session['logged_user_id'] = user._select_id_by_email(request.form['email'])
             return redirect(url_for('home'))
         else:
             return redirect(url_for('login_popup'))
