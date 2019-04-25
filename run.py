@@ -34,7 +34,11 @@ def pergunta(pergunta_id):
 def cadastro():
     if request.method == 'POST':
         user = User.User()
-        return str(user.validate_register(request.form['fullname'], request.form['email'], request.form['password']))
+        if user.validate_register(request.form['fullname'], request.form['email'], request.form['password']):
+            session['logged_user_id'] = request.form['email']
+            return render_template('minha-conta.html')
+        else:
+            return render_template('cadastro.html')
     else:
         return render_template('cadastro.html')
 
@@ -46,12 +50,19 @@ def fazer_pergunta():
     else:
         return render_template('fazer-pergunta.html')
 
+@app.route("/minha-conta")
+def minha_conta():
+    if not session.get('logged_user_id'):
+        return render_template('slogin.html')
+    else:
+        return render_template('minha-conta.html')
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user = User.User()
         if user.validate_login(request.form['email'], request.form['password']):
-            session['logged_user_email'] = request.form['email']
+            session['logged_user_id'] = request.form['email']
             return "Logado com sucesso!"
         else:
             return redirect(url_for('login_popup'))
@@ -62,10 +73,10 @@ def login():
 @app.route("/sair")
 def sair():
     # remove the username from the session if it is there
-    session.pop('logged_user_email', None)
+    session.pop('logged_user_id', None)
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
