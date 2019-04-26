@@ -25,7 +25,9 @@ class Database:
                                    password=password,
                                    db=db,
                                    cursorclass=pymysql.cursors.DictCursor,
-                                   autocommit=True)
+                                   autocommit=True,
+                                   use_unicode=True, 
+                                   charset="utf8")
         self.cur = self.con.cursor()
 
     def query(self, sql_query):
