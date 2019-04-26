@@ -70,7 +70,7 @@ def fazer_pergunta():
         if request.method == 'POST':
             question = Question.Question()
             if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id')):
-                return redirect(url_for('minhas-perguntas'))
+                return redirect(url_for('fazer_pergunta'))
             else:
                 render_template('popup.html', msg="Erro ao cadastrar pergunta", retry_url='/fazer-pergunta')
         else:
@@ -98,7 +98,12 @@ def minhas_respostas():
 
 @app.route("/remover-conta")
 def remover_conta():
-    return "Remover Conta"
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        User.User()._delete(str(session.get('logged_user_id')))
+        return redirect(url_for('cadastro'))
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

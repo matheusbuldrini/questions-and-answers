@@ -27,6 +27,11 @@ class User:
     def _select_all_by_userid(self, userid):
         return self.db.query('SELECT * FROM User WHERE iduser = "' + userid + '"')
 
+    def _delete(self, user_id):
+        return self.db.sql('DELETE FROM Answer WHERE iduser = "' + user_id + '")')
+        return self.db.sql('DELETE FROM Question WHERE iduser = "' + user_id + '")')
+        return self.db.sql('DELETE FROM User WHERE iduser = "' + userid + '")')
+
     def get_by_id(self,id):
         data = self._select_all_by_userid(id)
         print(data)
