@@ -28,8 +28,8 @@
 		  <div class="card">
         <div class="card-body">
           <blockquote class="blockquote blockquote-primary mb-0">
-            <input type="text" name="resposta" class="form-control" placeholder="responde aí">
-            <input type="submit" name="download" value="Responder">
+						<textarea name="resposta" class="form-control" placeholder="Digite sua resposta aqui"></textarea>
+            <input type="submit" name="download" value="Responder" class="btn btn-primary btn-round btn-lg btn-block">
           </blockquote>
 		    </div>
 		  </div>
@@ -46,6 +46,9 @@
 				<button class="btn btn-primary btn-icon btn-round">
 				  <i class="now-ui-icons arrows-1_minimal-down"></i>
 				</button>
+				<a href="/usuarios/{{ resp.iduser }}"><button class="btn btn-primary btn-outline-primary btn-round">
+					{{ resp.user_fullname }}
+				</button></a>
 			</blockquote>
 		</div>
 		</div>

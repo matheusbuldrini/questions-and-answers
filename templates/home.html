@@ -5,12 +5,11 @@
         <h2>Perguntas Recentes</h2>
 
 		{% for perg in perguntas %}
-		<a class="card" href="pergunta/{{ perg.id }}">
+		<a class="card" href="pergunta/{{ perg.idquestion }}">
 		<div class="card-body">
-			<h4 class="card-subtitle">{{ perg.titulo }}</h4>
-			<p class="card-text">{{ perg.desc }}</p>
-			<span href="#" class="card-link">ID: {{ perg.id }}</span>
-			<span href="#" class="card-link">1 bi visualizações</span>
+			<h4 class="card-subtitle">{{ perg.title }}</h4>
+			<p class="card-text">{{ perg.description }}</p>
+			<span href="#" class="card-link">{{ perg.data }}</span>
 		</div>
 		</a>
 		{% endfor %}

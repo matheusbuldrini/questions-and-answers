@@ -27,8 +27,9 @@ class User:
     def _select_all_by_userid(self, userid):
         return self.db.query('SELECT * FROM User WHERE iduser = "' + userid + '"')
 
-    def get_by_id(id):
+    def get_by_id(self,id):
         data = self._select_all_by_userid(id)
+        print(data)
         if len(data) == 1:
             return data[0]
         else:

@@ -2,8 +2,18 @@
 {% set active_page = "minha-conta" %}
 {% block content %}
 <h2>Minha Conta</h2>
+<div class="row">
+					<div class="col-md-10">
+						<a href="/minhas-perguntas"><button class="btn btn-primary" type="button">Minhas Perguntas</button></a>
+            <a href="/minhas-respostas"><button class="btn btn-primary" type="button">Minhas Respostas</button></a>
+            <a href="/remover-conta"><button class="btn btn-danger">Remover Conta</button></a>
+					</div>
+</div>
+<br>
+<br>
+<h3>Alterar dados</h3>
 <div class="card card-login card-plain">
-            <form class="form" method="POST" action="altera">
+            <form class="form" method="POST" action="/minha-conta">
               <div class="card-body">
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -11,7 +21,7 @@
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" name="fullname" class="form-control" placeholder="{{ data[0]['fullname'] }}">
+                  <input type="text" name="fullname" class="form-control" value="{{ user['fullname'] }}">
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -19,7 +29,7 @@
                       <i class="now-ui-icons ui-1_email-85"></i>
                     </span>
                   </div>
-                  <input type="email" name="email" class="form-control" placeholder="{{ data[0].email }}">
+                  <input type="email" name="email" class="form-control" value="{{ user.email }}">
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -27,7 +37,7 @@
                       <i class="now-ui-icons ui-1_lock-circle-open"></i>
                     </span>
                   </div>
-                  <input type="password" name="password" placeholder="{{ data[0].password }}" class="form-control">
+                  <input type="password" name="password" placeholder="Digite a nova senha para alterá-la" class="form-control">
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -35,7 +45,7 @@
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <textarea name="description" class="form-control" placeholder="{{ data[0].description }}"></textarea>
+                  <textarea name="description" class="form-control">{{ user.description }}</textarea>
                 </div>
               </div>
               <div class="card-footer text-center">
