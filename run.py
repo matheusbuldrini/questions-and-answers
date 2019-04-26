@@ -39,6 +39,7 @@ def cadastro():
         user = User.User()
         if user.validate_register(request.form['fullname'], request.form['email'], request.form['password']):
             session['logged_user_id'] = user._select_id_by_email(request.form['email'])
+            session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
             return redirect(url_for('minha-conta.html'))
         else:
             return render_template('cadastro.html')
@@ -89,6 +90,7 @@ def login():
         user = User.User()
         if user.validate_login(request.form['email'], request.form['password']):
             session['logged_user_id'] = user._select_id_by_email(request.form['email'])
+            session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
             return redirect(url_for('home'))
         else:
             return redirect(url_for('login_popup'))
@@ -99,6 +101,7 @@ def login():
 def sair():
     # remove the username from the session if it is there
     session.pop('logged_user_id', None)
+    session['name'] = ''
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
