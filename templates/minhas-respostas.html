@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% set active_page = "minhas-respostas" %}
+{% block content %}
+
+        <h2>Minhas Respostas</h2>
+
+		{% for res in respostas %}
+		<a class="card" href="pergunta/{{ res.idquestion }}">
+		<div class="card-body">
+			<h4 class="card-subtitle">{{ res.title }}</h4>
+			<p class="card-text">{{ res.description }}</p>
+			<span href="#" class="card-link">{{ res.data }}</span>
+		</div>
+		</a>
+		{% endfor %}
+
+{% endblock %}

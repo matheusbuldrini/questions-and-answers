@@ -90,11 +90,21 @@ def minha_conta():
 
 @app.route("/minhas-perguntas")
 def minhas_perguntas():
-    return "Minhas perguntas"
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        question = Question.Question()
+        perguntas = question.get_by_user(str(session.get('logged_user_id')))
+        return render_template('minhas-perguntas.html', perguntas=perguntas)
 
 @app.route("/minhas-respostas")
 def minhas_respostas():
-    return "Minhas respostas"
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        answer = Answer.Answer()
+        respostas = answer.get_by_user(str(session.get('logged_user_id')))
+        return render_template('minhas-respostas.html', respostas=respostas)
 
 @app.route("/remover-conta")
 def remover_conta():
