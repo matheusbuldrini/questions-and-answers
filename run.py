@@ -20,18 +20,22 @@ def login_popup():
 
 @app.route("/pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
 def pergunta(pergunta_id):
+    question = Question.Question()
+    pergunta_title = str(question.get_by_id(str(pergunta_id))[0]['title'])
     if request.method == 'POST':
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         answer_form = request.form['resposta']
         answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
         answer_form = None
-        return redirect(url_for('pergunta',pergunta_id = pergunta_id))
+        return redirect(url_for('pergunta', pergunta_id=pergunta_id))
     else:
         answer = Answer.Answer()
+        print(pergunta_title)
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,
-                               respostas=respostas)
+                               respostas=respostas,
+                               pergunta_title=pergunta_title)
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
