@@ -73,7 +73,7 @@ def fazer_pergunta():
             return render_template('fazer-pergunta.html')
 
 @app.route("/minha-conta")
-def minha-conta():
+def minha_conta():
     if request.method == 'POST':
         pass #atualiza os dados do usuario. Se a senha for != '', altera a senha também
     else:
