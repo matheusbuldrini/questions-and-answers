@@ -66,14 +66,14 @@ def fazer_pergunta():
         if request.method == 'POST':
             question = Question.Question()
             if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id')):
-                return redirect(url_for('minhas_perguntas'))
+                return redirect(url_for('minhas-perguntas'))
             else:
                 render_template('popup.html', msg="Erro ao cadastrar pergunta", retry_url='/fazer-pergunta')
         else:
             return render_template('fazer-pergunta.html')
 
 @app.route("/minha-conta")
-def minha_conta():
+def minha-conta():
     if request.method == 'POST':
         pass #atualiza os dados do usuario. Se a senha for != '', altera a senha também
     else:
