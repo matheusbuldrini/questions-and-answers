@@ -116,6 +116,13 @@ def remover_conta():
         return redirect(url_for('cadastro'))
 
 
+@app.route("/pesquisar", methods=['POST'])
+def pesquisar():
+    if request.method == 'POST':
+        question = Question.Question()
+        perguntas = question.get_by_title(request.form['pesquisa'])
+        return render_template('pesquisa.html', perguntas=perguntas)
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

@@ -9,8 +9,7 @@ class Question:
         return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question ORDER BY data DESC')
 
     def _select_question_by_title(self, question_title):
-        return int(self.db.query('SELECT COUNT(*) AS COUNT FROM Question WHERE title = "'
-                                 + question_title + '"')[0]['COUNT'])
+        return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question WHERE title LIKE "%' + question_title + '%"')
 
     def get_by_id(self, question_id):
         return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question WHERE idquestion = "' + question_id + '"')
@@ -31,6 +30,9 @@ class Question:
 
     def get_all(self):
         return self._select_all()
+
+    def get_by_title(self, title_search):
+        return self._select_question_by_title(title_search)
 
     def validate_question_post(self, title, description, user_id):
         if user_id:

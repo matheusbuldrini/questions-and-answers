@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% set active_page = "pesquisar" %}
+{% block content %}
+
+        <h2>Pesquisa</h2>
+
+		{% for perg in perguntas %}
+		<a class="card" href="pergunta/{{ perg.idquestion }}">
+		<div class="card-body">
+			<h4 class="card-subtitle">{{ perg.title }}</h4>
+			<p class="card-text">{{ perg.description }}</p>
+			<span href="#" class="card-link">{{ perg.data }}</span>
+		</div>
+		</a>
+		{% endfor %}
+
+{% endblock %}
