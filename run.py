@@ -26,11 +26,17 @@ def pergunta(pergunta_id):
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         answer_form = request.form['resposta']
-        answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
-        answer_form = None
-        return redirect(url_for('pergunta', pergunta_id=pergunta_id))
+        try:
+            if session['logged_user_id']:
+                answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
+                answer_form = None
+                return redirect(url_for('pergunta', pergunta_id=pergunta_id))
+        except Exception:
+            return redirect(url_for('login_popup'))
     else:
+
         answer = Answer.Answer()
+
         print(pergunta_title)
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,

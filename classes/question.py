@@ -12,6 +12,10 @@ class Question:
         return int(self.db.query('SELECT COUNT(*) AS COUNT FROM Question WHERE title = "'
                                  + question_title + '"')[0]['COUNT'])
 
+    def get_by_id(self, question_id):
+        return self.db.query('SELECT * FROM Question WHERE idquestion = "' +
+                                 question_id + '"')
+
     def _edit(self, question_id, question_new_title, question_new_description):
         return self.db.sql('UPDATE Question SET (title, description) = ("' + question_new_title
                            + '", "' + question_description + '") WHERE id = ("' + question_id + '")')
