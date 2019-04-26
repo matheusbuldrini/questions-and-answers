@@ -80,7 +80,11 @@
     <div class="container">
       <h1 class="display-3">ESWQA</h1>
       <p>Bem vindo, {{  session['name'] }}</p>
-      <p><a class="btn btn-primary btn-lg" href="/cadastro" role="button">Cadastrar &raquo;</a></p>
+      {% if session['logged_user_id'] %}
+        <p><a class="btn btn-primary btn-lg" href="/sair" role="button">Sair &raquo;</a></p>
+      {% else %}
+        <p><a class="btn btn-primary btn-lg" href="/cadastro" role="button">Cadastrar &raquo;</a></p>
+      {% endif %}
     </div>
   </div>
   {% else %}
