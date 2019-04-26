@@ -26,8 +26,7 @@ def pergunta(pergunta_id):
         answer_form = request.form['resposta']
         answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
         answer_form = None
-        return render_template('pergunta.html', pergunta_id=pergunta_id,
-                                   respostas=respostas)
+        return redirect(url_for('pergunta',pergunta_id = pergunta_id))
     else:
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
