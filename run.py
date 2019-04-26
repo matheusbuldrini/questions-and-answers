@@ -70,7 +70,7 @@ def fazer_pergunta():
         if request.method == 'POST':
             question = Question.Question()
             if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id')):
-                return redirect(url_for('fazer_pergunta'))
+                return redirect(url_for('home'))
             else:
                 render_template('popup.html', msg="Erro ao cadastrar pergunta", retry_url='/fazer-pergunta')
         else:

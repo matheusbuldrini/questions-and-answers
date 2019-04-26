@@ -6,7 +6,7 @@ class Question:
         self.db = Database()
 
     def _select_all(self):
-        return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question')
+        return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question ORDER BY data DESC')
 
     def _select_question_by_title(self, question_title):
         return int(self.db.query('SELECT COUNT(*) AS COUNT FROM Question WHERE title = "'
