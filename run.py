@@ -52,7 +52,7 @@ def cadastro():
         if user.validate_register(request.form['fullname'], request.form['email'], request.form['password']):
             session['logged_user_id'] = user._select_id_by_email(request.form['email'])
             session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
-            return redirect(url_for('minha-conta.html'))
+            return redirect(url_for('minha_conta'))
         else:
             return render_template('cadastro.html')
     else:
