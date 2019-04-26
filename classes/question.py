@@ -13,10 +13,10 @@ class Question:
                                  + question_title + '"')[0]['COUNT'])
 
     def get_by_id(self, question_id):
-        return self.db.query('SELECT * FROM Question WHERE idquestion = "' + question_id + '"')
+        return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question WHERE idquestion = "' + question_id + '"')
 
     def get_by_user(self, user_id):
-        return self.db.query('SELECT * FROM Question WHERE iduser = "' + user_id + '"')
+        return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question WHERE iduser = "' + user_id + '"')
 
     def _edit(self, question_id, question_new_title, question_new_description):
         return self.db.sql('UPDATE Question SET (title, description) = ("' + question_new_title
