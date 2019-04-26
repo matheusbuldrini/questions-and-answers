@@ -102,6 +102,7 @@ def remover_conta():
         return render_template('login.html')
     else:
         User.User()._delete(str(session.get('logged_user_id')))
+        session['logged_user_id'] = False;
         return redirect(url_for('cadastro'))
 
 
