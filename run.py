@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 import os
 import classes.user as User
