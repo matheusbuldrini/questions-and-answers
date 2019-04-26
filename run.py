@@ -21,18 +21,28 @@ def login_popup():
 
 @app.route("/pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
 def pergunta(pergunta_id):
+    question = Question.Question()
+    pergunta_title = str(question.get_by_id(str(pergunta_id))[0]['title'])
     if request.method == 'POST':
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         answer_form = request.form['resposta']
-        answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
-        answer_form = None
-        return redirect(url_for('pergunta',pergunta_id = pergunta_id))
+        try:
+            if session['logged_user_id']:
+                answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
+                answer_form = None
+                return redirect(url_for('pergunta', pergunta_id=pergunta_id))
+        except Exception:
+            return redirect(url_for('login_popup'))
     else:
+
         answer = Answer.Answer()
+
+        print(pergunta_title)
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,
-                               respostas=respostas)
+                               respostas=respostas,
+                               pergunta_title=pergunta_title)
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
@@ -40,6 +50,7 @@ def cadastro():
         user = User.User()
         if user.validate_register(request.form['fullname'], request.form['email'], request.form['password']):
             session['logged_user_id'] = user._select_id_by_email(request.form['email'])
+            session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
             return redirect(url_for('minha-conta.html'))
         else:
             return render_template('cadastro.html')
@@ -90,6 +101,7 @@ def login():
         user = User.User()
         if user.validate_login(request.form['email'], request.form['password']):
             session['logged_user_id'] = user._select_id_by_email(request.form['email'])
+            session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
             return redirect(url_for('home'))
         else:
             return redirect(url_for('login_popup'))
@@ -100,6 +112,7 @@ def login():
 def sair():
     # remove the username from the session if it is there
     session.pop('logged_user_id', None)
+    session['name'] = ''
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
