@@ -117,9 +117,8 @@ def remover_conta_confirmado():
         return render_template('login.html')
     else:
         User.User()._delete(str(session.get('logged_user_id')))
-        session.pop('logged_user_id', None)
-        session.pop('name', None)
-        return redirect(url_for('cadastro'))
+        sair()
+    return redirect(url_for('home'))
 
 @app.route("/remover-conta")
 def remover_conta():
