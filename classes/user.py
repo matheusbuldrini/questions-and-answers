@@ -34,9 +34,10 @@ class User:
         return self.db.sql('UPDATE User SET password="' + self.utils.md5(password) + '" WHERE iduser = "' + str(userid) + '"')
 
     def _delete(self, user_id):
-        self.db.sql('DELETE a FROM Answer a LEFT JOIN Question q ON a.idquestion = q.idquestion WHERE q.iduser = "' + user_id + '" OR a.userid = "' + user_id + '"')
-        self.db.sql('DELETE FROM Question WHERE iduser = "' + user_id + '"')
-        self.db.sql('DELETE FROM User WHERE iduser = "' + user_id + '"')
+        self.db.sql('DELETE FROM Answer WHERE iduser = "' + str(user_id) + '"')
+        self.db.sql('DELETE a FROM Answer a INNER JOIN Question q ON a.idquestion = q.idquestion WHERE q.iduser = "' + str(user_id) + '"')
+        self.db.sql('DELETE FROM Question WHERE iduser = "' + str(user_id) + '"')
+        self.db.sql('DELETE FROM User WHERE iduser = "' + str(user_id) + '"')
 
     def get_by_id(self,id):
         data = self._select_all_by_userid(id)
