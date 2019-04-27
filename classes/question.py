@@ -15,7 +15,7 @@ class Question:
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE q.idquestion = "' + question_id + '"')
 
     def get_by_user(self, user_id):
-        return self.db.query('SELECT idquestion, iduser, title, description, DATE_FORMAT(data, "%d/%m/%Y %H:%i:%s") AS data FROM Question WHERE iduser = "' + user_id + '"')
+        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE iduser = "' + user_id + '"')
 
     def _edit(self, question_id, question_new_title, question_new_description):
         return self.db.sql('UPDATE Question SET (title, description) = ("' + question_new_title
