@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.secret_key = 'any random string'
 
 @app.route("/")
-@app.route("/home/")
+@app.route("/home")
 def home():
     question = Question.Question()
     perguntas = question.get_all()
