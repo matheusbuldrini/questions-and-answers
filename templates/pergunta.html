@@ -21,17 +21,26 @@
         <div class="card-body">
           <blockquote class="blockquote blockquote-primary mb-0">
 						<textarea name="resposta" class="form-control" placeholder="Digite sua resposta aqui"></textarea>
-            <input type="submit" name="download" value="Responder" class="btn btn-primary btn-round btn-lg btn-block">
+            <input type="submit" name="download" value="Responder" class="btn btn-primary btn-round">
           </blockquote>
 		    </div>
 		  </div>
     </form>
+		{% else %}
+		<div class="card">
+			<div class="card-body">
+				<blockquote class="blockquote blockquote-primary mb-0">
+					<a href="/login"><button class="btn btn-link btn-primary ">Clique aqui para fazer login e responder</button></a>
+				</blockquote>
+			</div>
+		</div>
+
     {% endif %}
 
     {% for resp in respostas %}
 		<div class="card">
 		<div class="card-body">
-			<blockquote class="blockquote blockquote-primary mb-0">
+			<!--blockquote class="blockquote blockquote-primary mb-0"-->
 				<p class="card-text">{{ resp.description }}</p>
 				<button class="btn btn-primary btn-icon btn-round">
 				  <i class="now-ui-icons arrows-1_minimal-up"></i>
@@ -42,7 +51,7 @@
 				<button class="btn btn-primary btn-outline-primary btn-round">
 					{{ resp.user_fullname }}
 				</button>
-			</blockquote>
+			<!--/blockquote-->
 		</div>
 		</div>
     {% endfor %}

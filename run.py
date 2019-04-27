@@ -19,9 +19,9 @@ def home():
     perguntas = question.get_all()
     return render_template('home.html', perguntas=perguntas)
 
-@app.route('/login/unsuccessful')
-def login_popup():
-    return render_template('popup.html')
+@app.route('/popup')
+def popup(msg="Erro", links=[{'url': '/home', 'text': 'Home'}]):
+    return render_template('popup.html', msg=msg, links=links)
 
 @app.route("/pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
 def pergunta(pergunta_id):
@@ -39,7 +39,7 @@ def pergunta(pergunta_id):
                 answer_form = None
                 return redirect(url_for('pergunta', pergunta_id=pergunta_id))
         except Exception:
-            return redirect(url_for('login_popup'))
+            return popup()
     else:
         answer = Answer.Answer()
         print(pergunta_title)
@@ -72,14 +72,18 @@ def fazer_pergunta():
             if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id')):
                 return redirect(url_for('home'))
             else:
-                render_template('popup.html', msg="Erro ao cadastrar pergunta", retry_url='/fazer-pergunta')
+                return popup(msg="Erro ao cadastrar pergunta", links=[{'url': '/fazer-pergunta', 'text': 'Tentar Novamente'}])
         else:
             return render_template('fazer-pergunta.html')
 
-@app.route("/minha-conta")
+@app.route("/minha-conta", methods=['GET', 'POST'])
 def minha_conta():
     if request.method == 'POST':
-        pass #atualiza os dados do usuario. Se a senha for != '', altera a senha também
+        user = User.User()
+        if user.validate_update(request.form['fullname'], request.form['email'], request.form['password'], request.form['description'], str(session.get('logged_user_id'))):
+            return redirect(url_for('minha_conta'))
+        else:
+            return popup(msg="Erro ao atualizar dados", links=[{'url': '/minha-conta', 'text': 'Tentar Novamente'}])
     else:
         if session.get('logged_user_id'):
             user = User.User()
@@ -87,6 +91,7 @@ def minha_conta():
             if data:
                 return render_template('minha-conta.html', user = data)
         return redirect(url_for('login'))
+    return redirect(url_for('minha_conta'))
 
 @app.route("/minhas-perguntas")
 def minhas_perguntas():
@@ -106,14 +111,19 @@ def minhas_respostas():
         respostas = answer.get_by_user(str(session.get('logged_user_id')))
         return render_template('minhas-respostas.html', respostas=respostas)
 
-@app.route("/remover-conta")
-def remover_conta():
+@app.route("/remover-conta-confirmado")
+def remover_conta_confirmado():
     if not session.get('logged_user_id'):
         return render_template('login.html')
     else:
         User.User()._delete(str(session.get('logged_user_id')))
-        session['logged_user_id'] = False;
+        session.pop('logged_user_id', None)
+        session.pop('name', None)
         return redirect(url_for('cadastro'))
+
+@app.route("/remover-conta")
+def remover_conta():
+    return popup(msg="Tem certeza que quer remover a sua conta?", links=[{'url': '/remover-conta-confirmado', 'text': 'Remover conta!!!'}, {'url': '/minha-conta', 'text': 'Voltar'}])
 
 
 @app.route("/pesquisar", methods=['POST'])
@@ -132,7 +142,7 @@ def login():
             session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
             return redirect(url_for('home'))
         else:
-            return redirect(url_for('login_popup'))
+            return popup(msg="Erro ao fazer login", links=[{'url': '/login', 'text': 'Tentar Novamente'}])
     else:
         return render_template('login.html')
 
@@ -140,7 +150,7 @@ def login():
 def sair():
     # remove the username from the session if it is there
     session.pop('logged_user_id', None)
-    session['name'] = ''
+    session.pop('name', None)
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
