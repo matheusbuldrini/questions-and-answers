@@ -124,6 +124,17 @@ def remover_conta_confirmado():
 def remover_conta():
     return popup(msg="Tem certeza que quer remover a sua conta?", links=[{'url': '/remover-conta-confirmado', 'text': 'Remover conta!!!'}, {'url': '/minha-conta', 'text': 'Voltar'}])
 
+@app.route("/remover-pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
+def remover_pergunta(pergunta_id):
+    return popup(msg="Tem certeza que quer remover a sua pergunta?", links=[{'url': '/remover-pergunta-confirmado/' + str(pergunta_id), 'text': 'Remover pergunta!!!'}, {'url': '/minhas-perguntas', 'text': 'Voltar'}])
+
+@app.route("/remover-pergunta-confirmado/<int:pergunta_id>/", methods=['GET', 'POST'])
+def remover_pergunta_confirmado(pergunta_id):
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        Question.Question().remove(pergunta_id, str(session.get('logged_user_id')))
+    return redirect(url_for('minhas_perguntas'))
 
 @app.route("/pesquisar", methods=['POST'])
 def pesquisar():
