@@ -43,10 +43,10 @@ def pergunta(pergunta_id):
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,
                                respostas = respostas,
-                               pergunta_author = str(pergunta['fullname']),
-                               pergunta_title  = str(pergunta['title']),
-                               pergunta_data   = str(pergunta['data']),
-                               pergunta_desc   = str(pergunta['description']))
+                               pergunta_fullname = str(pergunta['fullname']),
+                               pergunta_title = str(pergunta['title']),
+                               pergunta_data = str(pergunta['data']),
+                               pergunta_desc = str(pergunta['description']))
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
