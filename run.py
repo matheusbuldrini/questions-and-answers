@@ -80,7 +80,7 @@ def minha_conta():
     if request.method == 'POST':
         user = User.User()
         if user.validate_update(request.form['fullname'], request.form['email'], request.form['password'], request.form['description'], str(session.get('logged_user_id'))):
-            session.pop('name', request.form['fullname'])
+            session['logged_user_id'] = request.form['fullname']
             return redirect(url_for('minha_conta'))
         else:
             return popup(msg="Erro ao atualizar dados", links=[{'url': '/minha-conta', 'text': 'Tentar Novamente'}])
