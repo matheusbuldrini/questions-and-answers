@@ -9,7 +9,12 @@
 		<div class="card-body">
 			<h4 class="card-subtitle">{{ perg.title }}</h4>
 			<p class="card-text">{{ perg.description }}</p>
-			<span href="#" class="card-link">{{ perg.data }}</span>
+			<button class="btn btn-primary btn-outline-primary btn-round">
+					{{ perg.data }}
+			</button>
+			<button class="btn btn-primary btn-outline-primary btn-round">
+				{{ perg.fullname }}
+			</button>
 		</div>
 		</a>
 		{% endfor %}

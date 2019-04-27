@@ -9,7 +9,12 @@
 		<div class="card-body">
 			<h4 class="card-subtitle">{{ res.title }}</h4>
 			<p class="card-text">{{ res.description }}</p>
-			<span href="#" class="card-link">{{ res.data }}</span>
+			<button class="btn btn-primary btn-outline-primary btn-round">
+					{{ res.data }}
+			</button>
+			<button class="btn btn-primary btn-outline-primary btn-round">
+				{{ res.fullname }}
+			</button>
 		</div>
 		</a>
 		{% endfor %}
