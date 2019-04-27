@@ -27,8 +27,6 @@ def popup(msg="Erro", links=[{'url': '/home', 'text': 'Home'}]):
 def pergunta(pergunta_id):
     question = Question.Question()
     pergunta = question.get_by_id(str(pergunta_id))[0]
-    pergunta_title = str(pergunta['title'])
-    pergunta_desc = str(pergunta['description'])
     if request.method == 'POST':
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
@@ -42,12 +40,13 @@ def pergunta(pergunta_id):
             return popup()
     else:
         answer = Answer.Answer()
-        print(pergunta_title)
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,
-                               respostas=respostas,
-                               pergunta_title=pergunta_title,
-                               pergunta_desc=pergunta_desc)
+                               respostas = respostas,
+                               pergunta_author = str(pergunta['fullname']),
+                               pergunta_title  = str(pergunta['title']),
+                               pergunta_data   = str(pergunta['data']),
+                               pergunta_desc   = str(pergunta['description']))
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
