@@ -18,4 +18,4 @@ class Answer:
         return self.db.sql('INSERT INTO Answer(idquestion, iduser, description) VALUES ("' + idquestion + '", "' + str(iduser) + '", "' + description + '")')
 
     def get_by_user(self, user_id):
-        return self.db.query('SELECT a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, q.title, u.fullname FROM Answer a INNER JOIN Question q ON a.idquestion = q.idquestion INNER JOIN User u ON a.iduser = u.iduser WHERE a.iduser = "' + user_id + '"')
+        return self.db.query('SELECT a.idquestion, a.idanswer, a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, q.title, u.fullname FROM Answer a INNER JOIN Question q ON a.idquestion = q.idquestion INNER JOIN User u ON a.iduser = u.iduser WHERE a.iduser = "' + user_id + '"')
