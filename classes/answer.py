@@ -9,7 +9,7 @@ class Answer:
         return self.db.query('SELECT * FROM Answer')
 
     def _select_all_by_questionid(self, questionid):
-        return self.db.query('SELECT Answer.*, User.fullname as user_fullname FROM Answer JOIN User on Answer.iduser = User.iduser WHERE idquestion = "' + questionid + '"')
+        return self.db.query('SELECT a.idanswer, a.idquestion, a.iduser, a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, u.fullname as user_fullname FROM Answer a JOIN User u on a.iduser = u.iduser WHERE a.idquestion = "' + questionid + '"')
 
     def _select_count_by_author(self, author):
         return int(self.db.query('SELECT COUNT(*) AS COUNT FROM Answer WHERE author = "' + author + '"')[0]['COUNT'])
