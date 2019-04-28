@@ -6,20 +6,20 @@
 
 		{% for perg in perguntas %}
 		<div class="card">
-		<div class="card-body">
-      <a href="pergunta/{{ perg.idquestion }}">
-			<h4 class="card-subtitle">{{ perg.title }}</h4>
-			<p class="card-text">{{ perg.description }}</p>
-      </a>
-			<button class="btn btn-primary btn-outline-primary btn-round">
-					{{ perg.data }}
-			</button>
-			<button class="btn btn-primary btn-outline-primary btn-round">
-				{{ perg.fullname }}
-			</button>
-      <a href="/editar-pergunta/{{ perg.idquestion }}">Editar</a>
-      <a href="/remover-pergunta/{{ perg.idquestion }}">Deletar</a>
-		</div>
+			<div class="card-body">
+				<a href="pergunta/33" style="text-decoration:none; color: black">
+					<h4 class="card-subtitle">{{ perg.title }}</h4>
+					<p class="card-text">{{ perg.description }}</p>
+				</a>
+				<button class="btn btn-primary btn-outline-primary btn-round">{{ perg.data }}</button>
+				<button class="btn btn-primary btn-outline-primary btn-round">{{ perg.fullname }}</button>
+				<a href="/editar-pergunta/33">
+					<button class="btn btn-primary btn-outline btn-round">Editar</button>
+				</a>
+				<a href="/remover-pergunta/33">
+					<button class="btn btn-danger btn-primary btn-outline btn-round">Deletar</button>
+				</a>
+			</div>
 		</div>
 		{% endfor %}
 
