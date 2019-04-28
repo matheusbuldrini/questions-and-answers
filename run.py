@@ -136,6 +136,20 @@ def remover_pergunta_confirmado(pergunta_id):
         Question.Question().remove(pergunta_id, str(session.get('logged_user_id')))
     return redirect(url_for('minhas_perguntas'))
 
+
+@app.route("/remover-resposta/<int:resposta_id>/", methods=['GET', 'POST'])
+def remover_resposta(resposta_id):
+    return popup(msg="Tem certeza que quer remover a sua resposta?", links=[{'url': '/remover-resposta-confirmado/' + str(resposta_id), 'text': 'Remover resposta!!!'}, {'url': '/minhas-respostas', 'text': 'Voltar'}])
+
+@app.route("/remover-resposta-confirmado/<int:resposta_id>/", methods=['GET', 'POST'])
+def remover_resposta_confirmado(resposta_id):
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        Answer.Answer().remove(resposta_id, str(session.get('logged_user_id')))
+    return redirect(url_for('minhas_respostas'))
+
+
 @app.route("/pesquisar", methods=['POST'])
 def pesquisar():
     if request.method == 'POST':
