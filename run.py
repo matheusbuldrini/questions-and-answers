@@ -26,7 +26,7 @@ def popup(msg="Erro", links=[{'url': '/home', 'text': 'Home'}]):
 @app.route("/pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
 def pergunta(pergunta_id):
     question = Question.Question()
-    pergunta = question.get_by_id(str(pergunta_id))[0]
+    pergunta = question.get_by_id(str(pergunta_id))
     if request.method == 'POST':
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))
