@@ -1,11 +1,13 @@
 from classes.database import Database
 from classes.answer import Answer
+from classes.utils import Utils
 
 class Question:
 
     def __init__(self):
         self.db = Database()
         self.answer = Answer()
+        self.utils = Utils()
 
     def _select_all(self):
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser ORDER BY data DESC')
