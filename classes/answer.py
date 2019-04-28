@@ -1,9 +1,11 @@
 from classes.database import Database
+from classes.utils import Utils
 
 class Answer:
 
     def __init__(self):
         self.db = Database()
+        self.utils = Utils()
 
     def _select_all(self):
         return self.db.query('SELECT * FROM Answer')
@@ -20,6 +22,9 @@ class Answer:
     def _delete(self, answer_id, user_id):
         return self.db.sql('DELETE FROM Answer WHERE idanswer = ' + str(answer_id) + ' AND iduser = ' + str(user_id))
 
+    def _edit(self, answer_description, answer_id):
+        return self.db.sql('UPDATE Answer SET description="' + answer_description + '" WHERE idanswer = "' + str(answer_id) + '"')
+
     def get_by_user(self, user_id):
         return self.db.query('SELECT a.idquestion, a.idanswer, a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, q.title, u.fullname FROM Answer a INNER JOIN Question q ON a.idquestion = q.idquestion INNER JOIN User u ON a.iduser = u.iduser WHERE a.iduser = "' + user_id + '"')
 
@@ -29,7 +34,18 @@ class Answer:
     def get_iduser_by_idanswer(self, answer_id):
         return self.db.sql('SELECT iduser FROM Answer WHERE idanswer = "' + str(answer_id) + '"')
 
+    def get_by_id(self, answer_id):
+        return self.db.query('SELECT q.title, a.iduser, a.description FROM Answer a INNER JOIN Question q ON a.idquestion = q.idquestion WHERE a.idanswer = "' + str(answer_id) + '"')[0]
+
     def remove(self, answer_id, user_id):
         self._delete(answer_id, user_id)
         return True
+
+    def validate_answer_post(self, description, user_id, answer_id):
+        if not self.utils.validate_not_empty([description, user_id, answer_id]):
+            return False
+        if user_id:
+            return self._edit(description, answer_id)
+        else:
+            return False
 

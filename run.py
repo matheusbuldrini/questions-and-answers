@@ -93,6 +93,23 @@ def editar_pergunta(pergunta_id):
         else:
             return redirect(url_for('home'))
 
+@app.route("/editar-resposta/<int:resposta_id>/", methods=['GET', 'POST'])
+def editar_resposta(resposta_id):
+    answer = Answer.Answer()
+    resposta = answer.get_by_id(str(resposta_id))
+    if request.method == 'POST':
+        if answer.validate_answer_post(request.form['description'], session.get('logged_user_id'), str(resposta_id)):
+            return redirect(url_for('minhas_respostas'))
+        else:
+            return popup(msg="Erro ao editar resposta", links=[{'url': '/editar-resposta/'+str(resposta_id), 'text': 'Tentar Novamente'}])
+    else:
+        if(int((resposta['iduser'])) == int(session['logged_user_id'])):
+            return render_template('editar-resposta.html', resposta_id=resposta_id,
+                                   pergunta_title = str(resposta['title']),
+                                   resposta_desc = str(resposta['description']))
+        else:
+            return redirect(url_for('home'))
+
 
 @app.route("/minha-conta", methods=['GET', 'POST'])
 def minha_conta():
