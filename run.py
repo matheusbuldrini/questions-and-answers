@@ -33,7 +33,7 @@ def pergunta(pergunta_id):
         answer_form = request.form['resposta']
         try:
             if session['logged_user_id']:
-                answer._insert(str(pergunta_id), session.get('logged_user_id'), answer_form)
+                answer.validate_answer_post(str(pergunta_id), session.get('logged_user_id'), answer_form)
                 answer_form = None
                 return redirect(url_for('pergunta', pergunta_id=pergunta_id))
         except Exception:
@@ -98,7 +98,7 @@ def editar_resposta(resposta_id):
     answer = Answer.Answer()
     resposta = answer.get_by_id(str(resposta_id))
     if request.method == 'POST':
-        if answer.validate_answer_post(request.form['description'], session.get('logged_user_id'), str(resposta_id)):
+        if answer.validate_answer_edit(request.form['description'], session.get('logged_user_id'), str(resposta_id)):
             return redirect(url_for('minhas_respostas'))
         else:
             return popup(msg="Erro ao editar resposta", links=[{'url': '/editar-resposta/'+str(resposta_id), 'text': 'Tentar Novamente'}])

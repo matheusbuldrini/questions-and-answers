@@ -41,7 +41,7 @@ class Answer:
         self._delete(answer_id, user_id)
         return True
 
-    def validate_answer_post(self, description, user_id, answer_id):
+    def validate_answer_edit(self, description, user_id, answer_id):
         if not self.utils.validate_not_empty([description, user_id, answer_id]):
             return False
         if user_id:
@@ -49,3 +49,10 @@ class Answer:
         else:
             return False
 
+    def validate_answer_post(self, idquestion, iduser, description):
+        if not self.utils.validate_not_empty([idquestion, iduser, description]):
+            return False
+        if user_id:
+            return self._insert(idquestion, iduser, description)
+        else:
+            return False
