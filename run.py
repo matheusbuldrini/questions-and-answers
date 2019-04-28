@@ -68,12 +68,31 @@ def fazer_pergunta():
     else:
         if request.method == 'POST':
             question = Question.Question()
-            if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id')):
+            if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id'), False):
                 return redirect(url_for('home'))
             else:
                 return popup(msg="Erro ao cadastrar pergunta", links=[{'url': '/fazer-pergunta', 'text': 'Tentar Novamente'}])
         else:
             return render_template('fazer-pergunta.html')
+
+
+@app.route("/editar-pergunta/<int:pergunta_id>/", methods=['GET', 'POST'])
+def editar_pergunta(pergunta_id):
+    question = Question.Question()
+    pergunta = question.get_by_id(str(pergunta_id))
+    if request.method == 'POST':
+        if question.validate_question_post(request.form['title'], request.form['description'], session.get('logged_user_id'), str(pergunta_id)):
+            return redirect(url_for('minhas_perguntas'))
+        else:
+            return popup(msg="Erro ao editar pergunta", links=[{'url': '/editar-pergunta/'+str(pergunta_id), 'text': 'Tentar Novamente'}])
+    else:
+        if(int((pergunta['iduser'])) == int(session['logged_user_id'])):
+            return render_template('editar-pergunta.html', pergunta_id=pergunta_id,
+                                   pergunta_title = str(pergunta['title']),
+                                   pergunta_desc = str(pergunta['description']))
+        else:
+            return redirect(url_for('home'))
+
 
 @app.route("/minha-conta", methods=['GET', 'POST'])
 def minha_conta():

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% set active_page = "editar-pergunta" %}
+{% block content %}
+<h2>Editar Pergunta</h2>
+<div class="card card-login card-plain">
+    <form class="form" method="POST" action="/editar-pergunta/{{ pergunta_id }}/">
+      <div class="card-body">
+        <div class="input-group no-border input-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons users_circle-08"></i>
+            </span>
+          </div>
+          <input type="text" name="title" class="form-control" placeholder="Pergunta" value="{{ pergunta_title }}">
+        </div>
+        <div class="input-group no-border input-lg">
+          <textarea class="form-control" rows="20" name="description" placeholder="Descreva melhor aqui">{{ pergunta_desc }}</textarea>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <input type="submit" value="Enviar" class="btn btn-primary btn-round btn-lg btn-block">
+    </div>
+  </form>
+  </div>
+</div>
+{% endblock %}
