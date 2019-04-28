@@ -29,15 +29,10 @@ def pergunta(pergunta_id):
     pergunta = question.get_by_id(str(pergunta_id))
     if request.method == 'POST':
         answer = Answer.Answer()
-        respostas = answer._select_all_by_questionid(str(pergunta_id))
-        answer_form = request.form['resposta']
-        try:
-            if session['logged_user_id']:
-                answer.validate_answer_post(str(pergunta_id), session.get('logged_user_id'), answer_form)
-                answer_form = None
+        if session['logged_user_id']:
+            if answer.validate_answer_post(str(pergunta_id), session.get('logged_user_id'), request.form['resposta']):
                 return redirect(url_for('pergunta', pergunta_id=pergunta_id))
-        except Exception:
-            return popup()
+        return popup(msg="Erro ao cadastrar resposta", links=[{'url': '/pergunta/' + str(pergunta_id), 'text': 'Voltar'}])
     else:
         answer = Answer.Answer()
         respostas = answer._select_all_by_questionid(str(pergunta_id))

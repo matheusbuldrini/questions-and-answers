@@ -52,7 +52,7 @@ class Answer:
     def validate_answer_post(self, idquestion, iduser, description):
         if not self.utils.validate_not_empty([idquestion, iduser, description]):
             return False
-        if user_id:
+        if iduser:
             return self._insert(idquestion, iduser, description)
         else:
             return False
