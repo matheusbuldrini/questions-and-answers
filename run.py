@@ -8,9 +8,16 @@ import os
 import classes.user as User
 import classes.answer as Answer
 import classes.question as Question
+import classes.utils as Utils
 
 app = Flask(__name__)
+@app.context_processor
+def inject_alert():
+    return dict(get_alert=Utils.Utils().get_alert, unset_alert=Utils.Utils().unset_alert)
+
 app.secret_key = 'any random string'
+
+utils = Utils.Utils()
 
 @app.route("/")
 @app.route("/home")
@@ -31,6 +38,7 @@ def pergunta(pergunta_id):
         answer = Answer.Answer()
         if session['logged_user_id']:
             if answer.validate_answer_post(str(pergunta_id), session.get('logged_user_id'), request.form['resposta']):
+                utils.set_alert('success', 'Resposta postada!')
                 return redirect(url_for('pergunta', pergunta_id=pergunta_id))
         return popup(msg="Erro ao cadastrar resposta", links=[{'url': '/pergunta/' + str(pergunta_id), 'text': 'Voltar'}])
     else:
@@ -50,6 +58,7 @@ def cadastro():
         if user.validate_register(request.form['fullname'], request.form['email'], request.form['password']):
             session['logged_user_id'] = user._select_id_by_email(request.form['email'])
             session['name'] = user.get_by_id(str(session['logged_user_id']))['fullname']
+            utils.set_alert('success', 'Registrado!')
             return redirect(url_for('minha_conta'))
         else:
             return render_template('cadastro.html')
@@ -64,6 +73,7 @@ def fazer_pergunta():
         if request.method == 'POST':
             question = Question.Question()
             if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id'), False):
+                utils.set_alert('success', 'Pergunta postada!')
                 return redirect(url_for('home'))
             else:
                 return popup(msg="Erro ao cadastrar pergunta", links=[{'url': '/fazer-pergunta', 'text': 'Tentar Novamente'}])
@@ -77,6 +87,7 @@ def editar_pergunta(pergunta_id):
     pergunta = question.get_by_id(str(pergunta_id))
     if request.method == 'POST':
         if question.validate_question_post(request.form['title'], request.form['description'], session.get('logged_user_id'), str(pergunta_id)):
+            utils.set_alert('success', 'Pergunta editada!')
             return redirect(url_for('minhas_perguntas'))
         else:
             return popup(msg="Erro ao editar pergunta", links=[{'url': '/editar-pergunta/'+str(pergunta_id), 'text': 'Tentar Novamente'}])
@@ -94,6 +105,7 @@ def editar_resposta(resposta_id):
     resposta = answer.get_by_id(str(resposta_id))
     if request.method == 'POST':
         if answer.validate_answer_edit(request.form['description'], session.get('logged_user_id'), str(resposta_id)):
+            utils.set_alert('success', 'Resposta editada!')
             return redirect(url_for('minhas_respostas'))
         else:
             return popup(msg="Erro ao editar resposta", links=[{'url': '/editar-resposta/'+str(resposta_id), 'text': 'Tentar Novamente'}])
@@ -165,6 +177,7 @@ def remover_pergunta_confirmado(pergunta_id):
         return render_template('login.html')
     else:
         Question.Question().remove(pergunta_id, str(session.get('logged_user_id')))
+        utils.set_alert('success', 'Pergunta removida!')
     return redirect(url_for('minhas_perguntas'))
 
 
@@ -178,6 +191,7 @@ def remover_resposta_confirmado(resposta_id):
         return render_template('login.html')
     else:
         Answer.Answer().remove(resposta_id, str(session.get('logged_user_id')))
+        utils.set_alert('success', 'Resposta removida!')
     return redirect(url_for('minhas_respostas'))
 
 

@@ -1,4 +1,5 @@
 import hashlib
+from flask import session
 
 class Utils:
     def md5(self, string):
@@ -9,3 +10,16 @@ class Utils:
             if item == '' or item == None :
                 return False
         return True
+
+    def get_alert(self):
+        try:
+            return session['alert']
+        except:
+            return False
+
+    def set_alert(self, type, text):
+        session['alert'] = {'type': type, 'text': text}
+
+    def unset_alert(self):
+        session['alert'] = None
+        return ''
