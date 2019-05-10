@@ -1,1 +1,1 @@
-web: python build.py
+web: pyb -v
