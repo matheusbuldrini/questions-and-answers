@@ -1,9 +1,8 @@
 import unittest
 from unittest.mock import patch
 from unittest import TestCase
-import sys
-sys.path.append('')
-import classes.utils as Utils
+
+import utils as Utils
 
 class Test(TestCase):
     @classmethod
