@@ -17,7 +17,7 @@ name = "eswqa"
 # What PyBuilder should run when no tasks are given.
 # Calling "pyb" amounts to calling "pyb publish" here.
 # We could run several tasks by assigning a list to `default_task`.
-default_task = ["analyze", "task2"]
+default_task = "analyze"
 
 # This is an initializer, a block of logic that runs before the project is built.
 @init
