@@ -1,5 +1,5 @@
-from classes.database import Database
-from classes.utils import Utils
+from database import Database
+from utils import Utils
 
 class User:
     def __init__(self):
@@ -41,7 +41,6 @@ class User:
 
     def get_by_id(self,id):
         data = self._select_all_by_userid(id)
-        print(data)
         if len(data) == 1:
             return data[0]
         else:
