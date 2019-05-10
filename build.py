@@ -1,5 +1,4 @@
-from pybuilder.core import use_plugin, init, task, depends
-
+from pybuilder.core import use_plugin, init
 # These are the plugins we want to use in our project.
 # Projects provide tasks which are blocks of logic executed by PyBuilder.
 
@@ -26,8 +25,3 @@ def set_properties(project):
     project.set_property("coverage_break_build", False)
     project.set_property('dir_source_main_python', 'classes')
     project.set_property("dir_source_unittest_python", "unittests")
-
-@task
-@depends("analyze")
-def task2():
-    print("Hello from task2")
