@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="1" failures="0" file="unittest/suite.py" name="unittest.suite._ErrorHolder-20190510205044" skipped="0" tests="1" time="0.000" timestamp="0001-01-01T00:00:00">
+	<testcase classname="setUpClass (classes_user_tests" file="unittests/classes_utils_tests.py" line="12" name="Test)" time="0.000" timestamp="0001-01-01T00:00:00">
+		<error message="type object 'User' has no attribute 'User'" type="AttributeError">
+<![CDATA[Traceback (most recent call last):
+  File "/home/matheus/github/eswqa/unittests/classes_user_tests.py", line 10, in setUpClass
+    self.us = User.User()
+AttributeError: type object 'User' has no attribute 'User'
+]]>		</error>
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+</testsuite>

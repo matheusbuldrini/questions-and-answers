@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="1" failures="0" file="classes_user_tests.py" name="classes_user_tests.Test-20190510204614" skipped="0" tests="1" time="0.002" timestamp="2019-05-10T20:46:15">
+	<testcase classname="classes_user_tests.Test" file="unittests/classes_user_tests.py" line="13" name="test_get_by_id" time="0.002" timestamp="2019-05-10T20:46:15">
+		<error message="&lt;module 'database' from '/home/matheus/github/eswqa/classes/database.py'&gt; does not have the attribute 'Database._select_all_by_userid'" type="AttributeError">
+<![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python3.6/unittest/mock.py", line 1171, in patched
+    arg = patching.__enter__()
+  File "/usr/lib/python3.6/unittest/mock.py", line 1243, in __enter__
+    original, local = self.get_original()
+  File "/usr/lib/python3.6/unittest/mock.py", line 1217, in get_original
+    "%s does not have the attribute %r" % (target, name)
+AttributeError: <module 'database' from '/home/matheus/github/eswqa/classes/database.py'> does not have the attribute 'Database._select_all_by_userid'
+]]>		</error>
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+</testsuite>

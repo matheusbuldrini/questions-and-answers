@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="1" failures="0" file="unittest/loader.py" name="unittest.loader._FailedTest-20190510204309" skipped="0" tests="1" time="0.000" timestamp="2019-05-10T20:43:09">
+	<testcase classname="unittest.loader._FailedTest" file="/usr/lib/python3.6/unittest/loader.py" line="33" name="classes_user_tests" time="0.000" timestamp="2019-05-10T20:43:09">
+		<error message="Failed to import test module: classes_user_tests
+Traceback (most recent call last):
+  File &quot;/usr/lib/python3.6/unittest/loader.py&quot;, line 153, in loadTestsFromName
+    module = __import__(module_name)
+  File &quot;/home/matheus/github/eswqa/unittests/classes_user_tests.py&quot;, line 5, in &lt;module&gt;
+    import user as User
+  File &quot;/home/matheus/github/eswqa/classes/user.py&quot;, line 1, in &lt;module&gt;
+    from classes.database import Database
+ModuleNotFoundError: No module named 'classes'
+" type="ImportError">
+<![CDATA[ImportError: Failed to import test module: classes_user_tests
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/unittest/loader.py", line 153, in loadTestsFromName
+    module = __import__(module_name)
+  File "/home/matheus/github/eswqa/unittests/classes_user_tests.py", line 5, in <module>
+    import user as User
+  File "/home/matheus/github/eswqa/classes/user.py", line 1, in <module>
+    from classes.database import Database
+ModuleNotFoundError: No module named 'classes'
+
+]]>		</error>
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+</testsuite>

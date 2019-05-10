@@ -1,5 +1,5 @@
-from database import Database
-from utils import Utils
+from classes.database import Database
+from classes.utils import Utils
 
 class User:
     def __init__(self):
