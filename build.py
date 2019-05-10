@@ -18,7 +18,7 @@ name = "eswqa"
 # What PyBuilder should run when no tasks are given.
 # Calling "pyb" amounts to calling "pyb publish" here.
 # We could run several tasks by assigning a list to `default_task`.
-default_task = "analyze"
+default_task = ["analyze", "task2"]
 
 # This is an initializer, a block of logic that runs before the project is built.
 @init
@@ -26,3 +26,8 @@ def set_properties(project):
     project.set_property("coverage_break_build", False)
     project.set_property('dir_source_main_python', 'classes')
     project.set_property("dir_source_unittest_python", "unittests")
+
+@task
+@depends("analyze")
+def task2():
+    print("Hello from task2")
