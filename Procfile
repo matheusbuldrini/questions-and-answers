@@ -1,2 +1,2 @@
-release: pyb -v > builder.log
+release: pyb -v
 web: python run.py
