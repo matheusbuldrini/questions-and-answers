@@ -1,2 +1,2 @@
-release: sh -c "pyb -v > build.log"
+release: pyb -v
 web: python run.py
