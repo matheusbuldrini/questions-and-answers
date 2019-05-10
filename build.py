@@ -6,12 +6,12 @@ from pybuilder.core import use_plugin, init
 use_plugin("python.core")
 # the python unittest plugin allows running python's standard library unittests
 use_plugin("python.unittest")
+use_plugin("python.coverage")
 # this plugin allows installing project dependencies with pip
 use_plugin("python.install_dependencies")
 # a linter plugin that runs flake8 (pyflakes + pep8) on our project sources
 #use_plugin("python.flake8")
 # a plugin that measures unit test statement coverage
-use_plugin("python.coverage")
 
 # The project name
 name = "eswqa"
@@ -24,4 +24,5 @@ default_task = "analyze"
 @init
 def set_properties(project):
     project.set_property("coverage_break_build", False)
+    project.set_property('dir_source_main_python', 'unittests')
     project.set_property("dir_source_unittest_python", "unittests")
