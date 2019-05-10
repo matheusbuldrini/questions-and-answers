@@ -1,4 +1,4 @@
-from pybuilder.core import use_plugin, init, task
+from pybuilder.core import use_plugin, init, task, depends
 
 # These are the plugins we want to use in our project.
 # Projects provide tasks which are blocks of logic executed by PyBuilder.
