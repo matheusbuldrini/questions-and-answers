@@ -1,2 +1,2 @@
 release: pyb -v
-web: python run.py
+web: python src/run.py

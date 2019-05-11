@@ -23,6 +23,6 @@ default_task = "analyze"
 @init
 def set_properties(project):
     project.set_property("coverage_break_build", False)
-    project.set_property('dir_source_main_python', '.')
+    project.set_property('dir_source_main_python', 'src')
     project.set_property("dir_source_unittest_python", "unittests")
     project.set_property('coverage_exceptions', ['run','build'])

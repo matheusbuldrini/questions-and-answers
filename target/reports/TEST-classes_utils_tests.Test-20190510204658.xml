@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="0" file="classes_utils_tests.py" name="classes_utils_tests.Test-20190510204658" skipped="0" tests="1" time="0.007" timestamp="2019-05-10T20:46:58">
-	<testcase classname="classes_utils_tests.Test" file="unittests/classes_utils_tests.py" line="12" name="test_md5" time="0.007" timestamp="2019-05-10T20:46:58">
-		<system-out>
-<![CDATA[]]>		</system-out>
-		<system-err>
-<![CDATA[]]>		</system-err>
-	</testcase>
-</testsuite>
