@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="1" file="classes_user_tests.py" name="classes_user_tests.Test-20190510210911" skipped="0" tests="2" time="0.004" timestamp="2019-05-10T21:09:12">
+	<testcase classname="classes_user_tests.Test" file="unittests/classes_user_tests.py" line="21" name="test_get_by_id" time="0.001" timestamp="2019-05-10T21:09:12">
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+	<testcase classname="classes_user_tests.Test" file="unittests/classes_user_tests.py" line="13" name="test__select_count_by_email" time="0.003" timestamp="2019-05-10T21:09:12">
+		<failure message="4 != 3" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python3.6/unittest/mock.py", line 1179, in patched
+    return func(*args, **keywargs)
+  File "/home/matheus/github/eswqa/unittests/classes_user_tests.py", line 19, in test__select_count_by_email
+    self.assertEqual(res, 3)
+AssertionError: 4 != 3
+]]>		</failure>
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+</testsuite>
