@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, Mock
 from unittest import TestCase
 
-from user import User as User
+from classes.user import User as User
 
 class Test(TestCase):
     @classmethod

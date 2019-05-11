@@ -1,7 +1,11 @@
-Name          Stmts   Miss Branch BrPart  Cover
------------------------------------------------
-database.py      14      3      0      0    79%
-user.py          55     32     16      1    34%
-utils.py         20     11      4      0    38%
------------------------------------------------
-TOTAL            89     46     20      1    40%
+Name                  Stmts   Miss Branch BrPart  Cover
+-------------------------------------------------------
+build.py                 11     11      0      0     0%
+classes/answer.py        41     41      8      0     0%
+classes/database.py      14     14      0      0     0%
+classes/question.py      44     44     10      0     0%
+classes/user.py          55     55     16      0     0%
+classes/utils.py         20     20      4      0     0%
+run.py                  145    145     54      0     0%
+-------------------------------------------------------
+TOTAL                   330    330     92      0     0%

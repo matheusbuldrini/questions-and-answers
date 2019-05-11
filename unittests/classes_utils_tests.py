@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch
 from unittest import TestCase
 
-import utils as Utils
+import classes.utils as Utils
 
 class Test(TestCase):
     @classmethod
