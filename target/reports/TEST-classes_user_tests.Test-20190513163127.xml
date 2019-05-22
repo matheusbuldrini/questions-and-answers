@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="0" file="classes_user_tests.py" name="classes_user_tests.Test-20190513163127" skipped="0" tests="2" time="0.016" timestamp="2019-05-13T16:31:29">
+	<testcase classname="classes_user_tests.Test" file="unittests\classes_user_tests.py" line="14" name="test__select_count_by_email" time="0.016" timestamp="2019-05-13T16:31:29">
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+	<testcase classname="classes_user_tests.Test" file="unittests\classes_user_tests.py" line="25" name="test_get_by_id" time="0.000" timestamp="2019-05-13T16:31:29">
+		<system-out>
+<![CDATA[]]>		</system-out>
+		<system-err>
+<![CDATA[]]>		</system-err>
+	</testcase>
+</testsuite>

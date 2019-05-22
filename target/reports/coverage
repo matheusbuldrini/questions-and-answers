@@ -1,7 +1,7 @@
 Name                  Stmts   Miss Branch BrPart  Cover
 -------------------------------------------------------
-classes/database.py      14      3      0      0    79%
-classes/user.py          55     31     16      1    35%
-classes/utils.py         20     11      4      0    38%
+classes\database.py      14      8      0      0    43%
+classes\user.py          55     49     16      1    10%
+classes\utils.py         20     19      4      0     4%
 -------------------------------------------------------
-TOTAL                    89     45     20      1    41%
+TOTAL                    89     76     20      1    13%
