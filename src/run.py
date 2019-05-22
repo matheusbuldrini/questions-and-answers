@@ -51,6 +51,13 @@ def pergunta(pergunta_id):
                                pergunta_data = str(pergunta['data']),
                                pergunta_desc = str(pergunta['description']))
 
+@app.route("/vote", methods=['POST'])
+def vote(pergunta_id):
+    answer = Answer.Answer()
+    if session['logged_user_id']:
+        #if answer.validate_vote_post(str(request.form['pergunta_id']), session.get('logged_user_id'), request.form['vote']):
+        answer.vote(request.form['pergunta_id'], session.get('logged_user_id'), request.form['vote'])
+		
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':

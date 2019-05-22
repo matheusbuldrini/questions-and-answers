@@ -11,11 +11,14 @@ class Answer:
         return self.db.query('SELECT * FROM Answer')
 
     def _select_all_by_questionid(self, questionid):
-        return self.db.query('SELECT a.idanswer, a.idquestion, a.iduser, a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, u.fullname as user_fullname FROM Answer a JOIN User u on a.iduser = u.iduser WHERE a.idquestion = "' + questionid + '"')
+        return self.db.query('SELECT a.idanswer, a.idquestion, a.iduser, a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, u.fullname as user_fullname, rating FROM Answer a left JOIN (SELECT idanswer, SUM(vote) as rating FROM VoteAnswer GROUP BY idanswer) b on b.idanswer = a.idanswer JOIN User u on a.iduser = u.iduser WHERE a.idquestion = "' + questionid + '"')
 
     def _select_count_by_author(self, author):
         return int(self.db.query('SELECT COUNT(*) AS COUNT FROM Answer WHERE author = "' + author + '"')[0]['COUNT'])
 
+    def _insert_vote(self, idanswer, iduser, vote):
+        return self.db.sql('INSERT INTO VoteAnswer(idanswer, iduser, vote) VALUES ('+idanswer+','+iduser+','+vote+')')
+	
     def _insert(self, idquestion, iduser, description):
         return self.db.sql('INSERT INTO Answer(idquestion, iduser, description) VALUES ("' + idquestion + '", "' + str(iduser) + '", "' + description + '")')
 
@@ -56,3 +59,6 @@ class Answer:
             return self._insert(idquestion, iduser, description)
         else:
             return False
+			
+    def vote(self, idanswer, iduser, vote):
+        self._insert_vote(idanswer, iduser, vote)
