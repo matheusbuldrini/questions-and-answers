@@ -1,5 +1,6 @@
 from classes.database import Database
 from classes.answer import Answer
+from classes.votequestion import VoteQuestion
 from classes.utils import Utils
 
 class Question:
@@ -7,6 +8,7 @@ class Question:
     def __init__(self):
         self.db = Database()
         self.answer = Answer()
+        self.votequestion = VoteQuestion()
         self.utils = Utils()
 
     def _select_all(self):
@@ -16,7 +18,7 @@ class Question:
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE q.title LIKE "%' + question_title + '%"')
 
     def get_by_id(self, question_id):
-        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE q.idquestion = "' + str(question_id) + '"')[0]
+        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, v.votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser, (SELECT SUM(vote) AS votes FROM VoteQuestion WHERE idquestion="'+str(question_id)+'") v WHERE q.idquestion = "' + str(question_id) + '"')[0]
 
     def get_by_user(self, user_id):
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE q.iduser = "' + user_id + '"')

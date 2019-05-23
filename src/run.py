@@ -8,6 +8,7 @@ import os
 import classes.user as User
 import classes.answer as Answer
 import classes.question as Question
+import classes.votequestion as VoteQuestion
 import classes.utils as Utils
 
 app = Flask(__name__)
@@ -46,10 +47,24 @@ def pergunta(pergunta_id):
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,
                                respostas = respostas,
+                               pergunta_votes = str(pergunta['votes']),
                                pergunta_fullname = str(pergunta['fullname']),
                                pergunta_title = str(pergunta['title']),
                                pergunta_data = str(pergunta['data']),
                                pergunta_desc = str(pergunta['description']))
+
+@app.route("/pergunta-votar", methods=['POST'])
+def votar_pergunta():
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        if request.method == "POST":
+            #pergunta_vote = request.json['vote'];
+            pergunta_id = request.json['id']
+            pergunta_vote = request.json['vote']
+            votequestion = VoteQuestion.VoteQuestion()
+            votequestion.vote(request.json['id'], str(session.get('logged_user_id')), pergunta_vote)
+            return redirect(url_for('pergunta', pergunta_id=pergunta_id))
 
 @app.route("/vote", methods=['POST'])
 def vote(pergunta_id):
