@@ -1,6 +1,54 @@
 {% extends "layout.html" %}
 {% set active_page = "pergunta" %}
 {% block content %}
+		    <script>
+      $(document).ready(function(){
+        $("#question-upvote").click(function(){
+          var votes = Number($("#question-votes").text());
+          $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
+          $.ajax({
+            type : "POST",
+            dataType : "text",
+            url : "{{url_for('votar_pergunta')}}",
+            contentType: "application/json; charset=utf-8",
+            data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"1"}),
+            success: function(data, textStatus, jQxhr){
+              $("#question-upvote").css("background","green");
+              $("#question-votes").val(votes+1);
+                $("#question-votes").html($("#question-votes").val());
+                $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
+            },
+            error: function(jqXhr, textStatus, errorThrown){
+              $("#question-votes").html(votes);
+              $("#question-upvote").css("background","#fa7a50");
+              $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
+            }
+          });
+        });
+        $("#question-downvote").click(function () {
+          var votes = Number($("#question-votes").text());
+          $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
+          $.ajax({
+            type : "POST",
+            dataType : "text",
+            url : "{{url_for('votar_pergunta')}}",
+            contentType: "application/json; charset=utf-8",
+            data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"-1"}),
+            success: function(data, textStatus, jQxhr){
+              $("#question-downvote").css("background","red");
+              $("#question-votes").val(votes-1);
+                $("#question-votes").html($("#question-votes").val());
+                $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
+            },
+            error: function(jqXhr, textStatus, errorThrown){
+              $("#question-votes").html(votes);
+              $("#question-downvote").css("background","#fa7a50");
+              $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
+            }
+          });
+        });
+      });
+      </script>
 		<div class="card">
 			<div class="card-body">
 				<h2 class="card-title">{{ pergunta_title }}</h2>
@@ -8,7 +56,7 @@
 				<button class="btn btn-primary btn-icon btn-round" id="question-upvote">
 					<i class="now-ui-icons arrows-1_minimal-up"></i>
 				</button>
-				<span id="question-votes">{{ pergunta_votes}}</span>
+				<span id="question-votes">{{ pergunta_votes }}</span>
 				<button class="btn btn-primary btn-icon btn-round" id="question-downvote">
 					<i class="now-ui-icons arrows-1_minimal-down"></i>
 				</button>

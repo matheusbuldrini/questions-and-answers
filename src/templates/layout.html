@@ -46,54 +46,6 @@
 
 	  }
     </style>
-    <script>
-      $(document).ready(function(){
-        $("#question-upvote").click(function(){
-          var votes = Number($("#question-votes").text());
-          $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-          $.ajax({
-            type : "POST",
-            dataType : "text",
-            url : "{{url_for('votar_pergunta')}}",
-            contentType: "application/json; charset=utf-8",
-            data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"1"}),
-            success: function(data, textStatus, jQxhr){
-              $("#question-upvote").css("background","green");
-              $("#question-votes").val(votes+1);
-                $("#question-votes").html($("#question-votes").val());
-                $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
-            },
-            error: function(jqXhr, textStatus, errorThrown){
-              $("#question-votes").html(votes);
-              $("#question-upvote").css("background","#fa7a50");
-              $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
-            }
-          });
-        });
-        $("#question-downvote").click(function () {
-          var votes = Number($("#question-votes").text());
-          $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-          $.ajax({
-            type : "POST",
-            dataType : "text",
-            url : "{{url_for('votar_pergunta')}}",
-            contentType: "application/json; charset=utf-8",
-            data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"-1"}),
-            success: function(data, textStatus, jQxhr){
-              $("#question-downvote").css("background","red");
-              $("#question-votes").val(votes-1);
-                $("#question-votes").html($("#question-votes").val());
-                $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
-            },
-            error: function(jqXhr, textStatus, errorThrown){
-              $("#question-votes").html(votes);
-              $("#question-downvote").css("background","#fa7a50");
-              $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
-            }
-          });
-        });
-      });
-      </script>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
