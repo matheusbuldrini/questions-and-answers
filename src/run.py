@@ -47,6 +47,7 @@ def pergunta(pergunta_id):
         respostas = answer._select_all_by_questionid(str(pergunta_id))
         return render_template('pergunta.html', pergunta_id=pergunta_id,
                                respostas = respostas,
+                               usuario_logado = session.get('logged_user_id'),
                                pergunta_votes = str(pergunta['votes']),
                                pergunta_fullname = str(pergunta['fullname']),
                                pergunta_title = str(pergunta['title']),
