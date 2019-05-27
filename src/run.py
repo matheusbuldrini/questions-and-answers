@@ -59,12 +59,11 @@ def votar_pergunta():
         return render_template('login.html')
     else:
         if request.method == "POST":
-            #pergunta_vote = request.json['vote'];
             pergunta_id = request.json['id']
             pergunta_vote = request.json['vote']
             votequestion = VoteQuestion.VoteQuestion()
-            votequestion.vote(request.json['id'], str(session.get('logged_user_id')), pergunta_vote)
-            return redirect(url_for('pergunta', pergunta_id=pergunta_id))
+            if votequestion.validate_vote(pergunta_id, str(session.get('logged_user_id')), pergunta_vote):
+                return redirect(url_for('pergunta', pergunta_id=pergunta_id))
 
 @app.route("/vote", methods=['POST'])
 def vote(pergunta_id):

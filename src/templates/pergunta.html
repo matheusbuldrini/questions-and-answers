@@ -1,62 +1,25 @@
 {% extends "layout.html" %}
 {% set active_page = "pergunta" %}
 {% block content %}
-		<script>
-			$(document).ready(function(){
-				$("#question-upvote").click(function(){
-					var votes = Number($("#question-votes").text());
-					$.ajax({
-						type : "POST",
-						dataType : "text",
-						url : "{{url_for('votar_pergunta')}}",
-						contentType: "application/json; charset=utf-8",
-						data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"1"}),
-						success: function(data, textStatus, jQxhr){
-							$("#question-votes").val(votes+1);
-					    	$("#question-votes").html($("#question-votes").val());
-						},
-						error: function(jqXhr, textStatus, errorThrown){
-							alert(errorThrown)
-						}
-					});
-				});
-				$("#question-downvote").click(function () {
-					var votes = Number($("#question-votes").text());
-					$.ajax({
-						type : "POST",
-						dataType : "text",
-						url : "{{url_for('votar_pergunta')}}",
-						contentType: "application/json; charset=utf-8",
-						data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"-1"}),
-						success: function(data, textStatus, jQxhr){
-							$("#question-votes").val(votes-1);
-					    	$("#question-votes").html($("#question-votes").val());
-						},
-						error: function(jqXhr, textStatus, errorThrown){
-							alert(errorThrown)
-						}
-					});
-				});
-			});
-	    </script>
 		<div class="card">
-		<div class="card-body">
-			<h2 class="card-title">{{ pergunta_title }}</h2>
-			<p class="card-text">{{ pergunta_desc }} </p>
-			<button class="btn btn-primary btn-icon btn-round">
-				<i class="now-ui-icons arrows-1_minimal-up" id="question-upvote"></i>
-			</button>
-			<span id="question-votes">{{ pergunta_votes}}</span>
-			<button class="btn btn-primary btn-icon btn-round">
-				<i class="now-ui-icons arrows-1_minimal-down" id="question-downvote"></i>
-			</button>
-			<button class="btn btn-primary btn-outline-primary btn-round">
-					{{ pergunta_data }}
-			</button>
-			<button class="btn btn-primary btn-outline-primary btn-round">
-				{{ pergunta_fullname }}
-			</button>
-		</div>
+			<div class="card-body">
+				<h2 class="card-title">{{ pergunta_title }}</h2>
+				<p class="card-text">{{ pergunta_desc }} </p>
+				<button class="btn btn-primary btn-icon btn-round" id="question-upvote">
+					<i class="now-ui-icons arrows-1_minimal-up"></i>
+				</button>
+				<span id="question-votes">{{ pergunta_votes}}</span>
+				<button class="btn btn-primary btn-icon btn-round" id="question-downvote">
+					<i class="now-ui-icons arrows-1_minimal-down"></i>
+				</button>
+				<button class="btn btn-primary btn-outline-primary btn-round">
+						{{ pergunta_data }}
+				</button>
+				<button class="btn btn-primary btn-outline-primary btn-round">
+					{{ pergunta_fullname }}
+				</button>
+				<span id="question-msg"></span>
+			</div>
 		</div>
 
 	{% if session['logged_user_id'] %}
