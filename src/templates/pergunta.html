@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set active_page = "pergunta" %}
 {% block content %}
-		    <script>
+	<script>
       $(document).ready(function(){
         $("#question-upvote").click(function(){
           var votes = Number($("#question-votes").text());
@@ -15,8 +15,8 @@
             success: function(data, textStatus, jQxhr){
               $("#question-upvote").css("background","green");
               $("#question-votes").val(votes+1);
-                $("#question-votes").html($("#question-votes").val());
-                $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
+              $("#question-votes").html($("#question-votes").val());
+              $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
             },
             error: function(jqXhr, textStatus, errorThrown){
               $("#question-votes").html(votes);
@@ -37,8 +37,8 @@
             success: function(data, textStatus, jQxhr){
               $("#question-downvote").css("background","red");
               $("#question-votes").val(votes-1);
-                $("#question-votes").html($("#question-votes").val());
-                $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
+              $("#question-votes").html($("#question-votes").val());
+              $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
             },
             error: function(jqXhr, textStatus, errorThrown){
               $("#question-votes").html(votes);
