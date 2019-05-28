@@ -6,7 +6,6 @@
 			if({{usuario_logado}}){
 				$("#question button").click(function(){
 				  var vote = parseInt($(this).attr("vote"));
-				  var color = $(this).attr("color");
 				  var total = parseInt($("#question-votes").text());
 				  $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
 				  $.ajax({
@@ -17,9 +16,9 @@
 				    data : JSON.stringify({"id":"{{pergunta_id}}", "vote":""+vote+""}),
 				    success: function(data, textStatus, jQxhr){
 				      if(vote == 1)
-				    	$("#question-upvote").css("background",color);
+				    	$("#question-upvote").css("background","green");
 				      else
-				      	$("#question-downvote").css("background",color);
+				      	$("#question-downvote").css("background","red");
 				      $("#question-votes").val(vote+total);
 				      $("#question-votes").html($("#question-votes").val());
 				      $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
@@ -33,7 +32,6 @@
 				$("#answer button").click(function () {
 				  var id = parseInt($(this).attr("answer"));
 				  var vote = parseInt($(this).attr("vote"));
-				  var color = $(this).attr("color");
 				  var total = parseInt($("#answer-votes_"+id).text());
 				  $("#answer-votes_"+id).html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
 				  $.ajax({
@@ -44,9 +42,9 @@
 				    data : JSON.stringify({"idquestion":"{{pergunta_id}}","idanswer":""+id+"", "vote":""+vote+""}),
 				    success: function(data, textStatus, jQxhr){
 				      if(vote == 1)
-				    	$("#answer-upvote_"+id).css("background",color);
+				    	$("#answer-upvote_"+id).css("background","green");
 				      else
-				      	$("#answer-downvote_"+id).css("background",color);
+				      	$("#answer-downvote_"+id).css("background","red");
 				      $("#answer-votes_"+id).val(vote+total);
 				      $("#answer-votes_"+id).html($("#answer-votes_"+id).val());
 				      $("#answer-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
@@ -64,11 +62,11 @@
 	<div class="card-body" id="question">
 		<h2 class="card-title">{{ pergunta_title }}</h2>
 		<p class="card-text">{{ pergunta_desc }} </p>
-		<button class="btn btn-primary btn-icon btn-round" color="green" vote="1" id="question-upvote">
+		<button class="btn btn-primary btn-icon btn-round" vote="1" id="question-upvote">
 			<i class="now-ui-icons arrows-1_minimal-up"></i>
 		</button>
 		<span id="question-votes">{{ pergunta_votes }}</span>
-		<button class="btn btn-primary btn-icon btn-round" color="red" vote="-1" id="question-downvote">
+		<button class="btn btn-primary btn-icon btn-round" vote="-1" id="question-downvote">
 			<i class="now-ui-icons arrows-1_minimal-down"></i>
 		</button>
 		<button class="btn btn-primary btn-outline-primary btn-round">
