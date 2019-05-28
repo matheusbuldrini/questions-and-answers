@@ -2,75 +2,84 @@
 {% set active_page = "pergunta" %}
 {% block content %}
 	<script>
-      $(document).ready(function(){
-      	if({{usuario_logado}}){
-	        $("#question-upvote").click(function(){
-	          var votes = Number($("#question-votes").text());
-	          $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-	          $.ajax({
-	            type : "POST",
-	            dataType : "text",
-	            url : "{{url_for('votar_pergunta')}}",
-	            contentType: "application/json; charset=utf-8",
-	            data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"1"}),
-	            success: function(data, textStatus, jQxhr){
-	              $("#question-upvote").css("background","green");
-	              $("#question-votes").val(votes+1);
-	              $("#question-votes").html($("#question-votes").val());
-	              $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
-	            },
-	            error: function(jqXhr, textStatus, errorThrown){
-	              $("#question-votes").html(votes);
-	              $("#question-upvote").css("background","#fa7a50");
-	              $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
-	            }
-	          });
-	        });
-	        $("#question-downvote").click(function () {
-	          var votes = Number($("#question-votes").text());
-	          $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-	          $.ajax({
-	            type : "POST",
-	            dataType : "text",
-	            url : "{{url_for('votar_pergunta')}}",
-	            contentType: "application/json; charset=utf-8",
-	            data : JSON.stringify({"id":"{{pergunta_id}}", "vote":"-1"}),
-	            success: function(data, textStatus, jQxhr){
-	              $("#question-downvote").css("background","red");
-	              $("#question-votes").val(votes-1);
-	              $("#question-votes").html($("#question-votes").val());
-	              $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
-	            },
-	            error: function(jqXhr, textStatus, errorThrown){
-	              $("#question-votes").html(votes);
-	              $("#question-downvote").css("background","#fa7a50");
-	              $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
-	            }
-	          });
-	        });
-    	}
-      });
-      </script>
-		<div class="card">
-			<div class="card-body">
-				<h2 class="card-title">{{ pergunta_title }}</h2>
-				<p class="card-text">{{ pergunta_desc }} </p>
-				<button class="btn btn-primary btn-icon btn-round" id="question-upvote">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</button>
-				<span id="question-votes">{{ pergunta_votes }}</span>
-				<button class="btn btn-primary btn-icon btn-round" id="question-downvote">
-					<i class="now-ui-icons arrows-1_minimal-down"></i>
-				</button>
-				<button class="btn btn-primary btn-outline-primary btn-round">
-						{{ pergunta_data }}
-				</button>
-				<button class="btn btn-primary btn-outline-primary btn-round">
-					{{ pergunta_fullname }}
-				</button>
-				<span id="question-msg"></span>
-			</div>
-		</div>
+		$(document).ready(function(){
+			if({{usuario_logado}}){
+				$("#question button").click(function(){
+				  var vote = parseInt($(this).attr("vote"));
+				  var color = $(this).attr("color");
+				  var total = parseInt($("#question-votes").text());
+				  $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
+				  $.ajax({
+				    type : "POST",
+				    dataType : "text",
+				    url : "{{url_for('votar_pergunta')}}",
+				    contentType: "application/json; charset=utf-8",
+				    data : JSON.stringify({"id":"{{pergunta_id}}", "vote":""+vote+""}),
+				    success: function(data, textStatus, jQxhr){
+				      if(vote == 1)
+				    	$("#question-upvote").css("background",color);
+				      else
+				      	$("#question-downvote").css("background",color);
+				      $("#question-votes").val(vote+total);
+				      $("#question-votes").html($("#question-votes").val());
+				      $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
+				    },
+				    error: function(jqXhr, textStatus, errorThrown){
+				      $("#question-votes").html(total);
+				      $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
+				    }
+				  });
+				});
+				$("#answer button").click(function () {
+				  var id = parseInt($(this).attr("answer"));
+				  var vote = parseInt($(this).attr("vote"));
+				  var color = $(this).attr("color");
+				  var total = parseInt($("#answer-votes_"+id).text());
+				  $("#answer-votes_"+id).html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
+				  $.ajax({
+				    type : "POST",
+				    dataType : "text",
+				    url : "{{url_for('votar_resposta')}}",
+				    contentType: "application/json; charset=utf-8",
+				    data : JSON.stringify({"idquestion":"{{pergunta_id}}","idanswer":""+id+"", "vote":""+vote+""}),
+				    success: function(data, textStatus, jQxhr){
+				      if(vote == 1)
+				    	$("#answer-upvote_"+id).css("background",color);
+				      else
+				      	$("#answer-downvote_"+id).css("background",color);
+				      $("#answer-votes_"+id).val(vote+total);
+				      $("#answer-votes_"+id).html($("#answer-votes_"+id).val());
+				      $("#answer-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
+				    },
+				    error: function(jqXhr, textStatus, errorThrown){
+				      $("#answer-votes_"+id).html(total);
+				      $("#answer-msg_"+id).html("Algo deu errado! Você já votou nessa resposta.");
+				    }
+				  });
+				});	
+			}
+		});
+	</script>
+	<div class="card">
+	<div class="card-body" id="question">
+		<h2 class="card-title">{{ pergunta_title }}</h2>
+		<p class="card-text">{{ pergunta_desc }} </p>
+		<button class="btn btn-primary btn-icon btn-round" color="green" vote="1" id="question-upvote">
+			<i class="now-ui-icons arrows-1_minimal-up"></i>
+		</button>
+		<span id="question-votes">{{ pergunta_votes }}</span>
+		<button class="btn btn-primary btn-icon btn-round" color="red" vote="-1" id="question-downvote">
+			<i class="now-ui-icons arrows-1_minimal-down"></i>
+		</button>
+		<button class="btn btn-primary btn-outline-primary btn-round">
+				{{ pergunta_data }}
+		</button>
+		<button class="btn btn-primary btn-outline-primary btn-round">
+			{{ pergunta_fullname }}
+		</button>
+		<span id="question-msg"></span>
+	</div>
+	</div>
 
 	{% if session['logged_user_id'] %}
     <form class="form" method="POST">
@@ -96,14 +105,14 @@
 
     {% for resp in respostas %}
 		<div class="card">
-		<div class="card-body">
+		<div class="card-body" id="answer">
 			<!--blockquote class="blockquote blockquote-primary mb-0"-->
 				<p class="card-text">{{ resp.description }}</p>
-				<button class="btn btn-primary btn-icon btn-round">
+				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" color="green" vote="1" id="answer-upvote_{{resp.idanswer}}" >
 				  <i class="now-ui-icons arrows-1_minimal-up"></i>
 				</button>
-				<big>{{ resp.rating }}</big>
-				<button class="btn btn-primary btn-icon btn-round">
+				<span id="answer-votes_{{resp.idanswer}}">{{ resp.rating }}</span>
+				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" color="red" vote="-1" id="answer-downvote_{{resp.idanswer}}">
 				  <i class="now-ui-icons arrows-1_minimal-down"></i>
 				</button>
 				<button class="btn btn-primary btn-outline-primary btn-round">
@@ -112,46 +121,9 @@
 				<button class="btn btn-primary btn-outline-primary btn-round">
 					{{ resp.user_fullname }}
 				</button>
+				<span id="answer-msg_{{resp.idanswer}}"></span>
 			<!--/blockquote-->
 		</div>
 		</div>
     {% endfor %}
-
-
-		<!-- <div class="card"> -->
-		<!-- <div class="card-body"> -->
-		<!-- 	<blockquote class="blockquote blockquote-primary mb-0"> -->
-		<!-- 		<p class="card-text">Eu sou a melhor resposta. Me respeitem!</p> -->
-		<!-- 		<button class="btn btn-primary btn-icon btn-round"> -->
-		<!-- 		  <i class="now-ui-icons arrows-1_minimal-up"></i> -->
-		<!-- 		</button> -->
-		<!-- 		<button class="btn btn-primary btn-icon btn-round"> -->
-		<!-- 		  <i class="now-ui-icons arrows-1_minimal-down"></i> -->
-		<!-- 		</button> -->
-		<!-- 	</blockquote> -->
-		<!-- </div> -->
-		<!-- </div> -->
-		<!-- <div class="card"> -->
-		<!-- <div class="card-body"> -->
-		<!-- 	<p class="card-text">Tenta em C, ninguem usa java hoje em dia!</p> -->
-		<!-- 	<button class="btn btn-primary btn-icon btn-round"> -->
-		<!-- 	  <i class="now-ui-icons arrows-1_minimal-up"></i> -->
-		<!-- 	</button> -->
-		<!-- 	<button class="btn btn-primary btn-icon btn-round"> -->
-		<!-- 	  <i class="now-ui-icons arrows-1_minimal-down"></i> -->
-		<!-- 	</button> -->
-		<!-- </div> -->
-		<!-- </div> -->
-		<!-- <div class="card"> -->
-		<!-- <div class="card-body"> -->
-		<!-- 	<p class="card-text">C também não pô, faz em Python!</p> -->
-		<!-- 	<button class="btn btn-primary btn-icon btn-round"> -->
-		<!-- 	  <i class="now-ui-icons arrows-1_minimal-up"></i> -->
-		<!-- 	</button> -->
-		<!-- 	<button class="btn btn-primary btn-icon btn-round"> -->
-		<!-- 	  <i class="now-ui-icons arrows-1_minimal-down"></i> -->
-		<!-- 	</button> -->
-		<!-- </div> -->
-		<!-- </div> -->
-
 {% endblock %}

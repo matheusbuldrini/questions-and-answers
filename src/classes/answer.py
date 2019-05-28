@@ -11,7 +11,7 @@ class Answer:
         return self.db.query('SELECT * FROM Answer')
 
     def _select_all_by_questionid(self, questionid):
-        return self.db.query('SELECT a.idanswer, a.idquestion, a.iduser, a.description, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, u.fullname as user_fullname, rating FROM Answer a left JOIN (SELECT idanswer, SUM(vote) as rating FROM VoteAnswer GROUP BY idanswer) b on b.idanswer = a.idanswer JOIN User u on a.iduser = u.iduser WHERE a.idquestion = "' + questionid + '"')
+        return self.db.query('SELECT a.idanswer, a.idquestion, a.iduser, a.description, (CASE WHEN b.rating IS NULL THEN 0 ELSE b.rating END) AS rating, DATE_FORMAT(a.data, "%d/%m/%Y %H:%i:%s") AS data, u.fullname AS user_fullname FROM Answer a LEFT JOIN (SELECT idanswer, SUM(vote) AS rating FROM VoteAnswer GROUP BY idanswer) b ON b.idanswer = a.idanswer INNER JOIN User u on a.iduser = u.iduser WHERE a.idquestion = "' + questionid + '"')
 
     def _select_count_by_author(self, author):
         return int(self.db.query('SELECT COUNT(*) AS COUNT FROM Answer WHERE author = "' + author + '"')[0]['COUNT'])

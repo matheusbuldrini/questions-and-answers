@@ -9,6 +9,7 @@ import classes.user as User
 import classes.answer as Answer
 import classes.question as Question
 import classes.votequestion as VoteQuestion
+import classes.voteanswer as VoteAnswer
 import classes.utils as Utils
 
 app = Flask(__name__)
@@ -60,18 +61,24 @@ def votar_pergunta():
         return render_template('login.html')
     else:
         if request.method == "POST":
-            pergunta_id = request.json['id']
-            pergunta_vote = request.json['vote']
+            question_id = request.json['id']
+            question_vote = request.json['vote']
             votequestion = VoteQuestion.VoteQuestion()
-            if votequestion.validate_vote(pergunta_id, str(session.get('logged_user_id')), pergunta_vote):
-                return redirect(url_for('pergunta', pergunta_id=pergunta_id))
+            if votequestion.validate_vote(question_id, str(session.get('logged_user_id')), question_vote):
+                return redirect(url_for('pergunta', pergunta_id=question_id))
 
-@app.route("/vote", methods=['POST'])
-def vote(pergunta_id):
-    answer = Answer.Answer()
-    if session['logged_user_id']:
-        #if answer.validate_vote_post(str(request.form['pergunta_id']), session.get('logged_user_id'), request.form['vote']):
-        answer.vote(request.form['pergunta_id'], session.get('logged_user_id'), request.form['vote'])
+@app.route("/resposta-votar", methods=['POST'])
+def votar_resposta():
+    if not session.get('logged_user_id'):
+        return render_template('login.html')
+    else:
+        if request.method == "POST":
+            question_id = request.json['idquestion']
+            answer_id = request.json['idanswer']
+            answer_vote = request.json['vote']
+            voteanswer = VoteAnswer.VoteAnswer()
+            if voteanswer.validate_vote(answer_id, str(session.get('logged_user_id')), answer_vote):
+                return redirect(url_for('pergunta', pergunta_id=question_id))
 		
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
