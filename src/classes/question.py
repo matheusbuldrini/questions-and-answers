@@ -29,9 +29,7 @@ class Question:
         return self.db.sql('UPDATE Question SET title="' + question_title + '", description="' + question_description + '" WHERE idquestion = "' + str(question_id) + '"')
 
     def _insert(self, question_title, question_description, question_id_user, question_tag):
-        json_tag = json.dumps(question_tag)
-        print('INSERT INTO Question(title, description, iduser, tags) VALUES ("' + question_title + '", "' + question_description + '", "' + str(question_id_user) + '", "' + str({"1": "xxx", "2": "yyyy"}) + '")')
-        return self.db.sql('INSERT INTO Question(title, description, iduser, tags) VALUES ("' + question_title + '", "' + question_description + '", "' + str(question_id_user) + '", "' + str({"1": "xxx", "2": "yyyy"}) + '")')
+        return self.db.sql("INSERT INTO Question(title, description, iduser, tags) VALUES ('" + question_title + "', '" + question_description + "', '" + str(question_id_user) + "', '"+question_tag+"')")
 
     def _delete(self, question_id, user_id):
         return self.db.sql('DELETE FROM Question WHERE idquestion = ' + str(question_id) + ' AND iduser = ' + str(user_id))

@@ -104,12 +104,8 @@ def fazer_pergunta():
     else:
         if request.method == 'POST':
             question = Question.Question()
-            tags = request.form['tag'].split(',')
-
-            dict_tag = {'Tags': dict(('tag ' + str(i), item) for i, item in enumerate(tags))}
-            dict_tag = json.dumps(dict_tag)
-
-            if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id'), dict_tag, False):
+            tags = request.form["tag"].split(",")
+            if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id'), json.dumps(tags), False):
                 utils.set_alert('success', 'Pergunta postada!')
                 return redirect(url_for('home'))
             else:
