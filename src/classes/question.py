@@ -23,7 +23,7 @@ class Question:
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, (CASE WHEN v.votes IS NULL THEN 0 ELSE v.votes END) AS votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser, (SELECT SUM(vote) AS votes FROM VoteQuestion WHERE idquestion="'+str(question_id)+'") v WHERE q.idquestion = "' + str(question_id) + '"')[0]
 
     def get_by_user(self, user_id):
-        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE q.iduser = "' + user_id + '"')
+        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, (CASE WHEN v.votes IS NULL THEN 0 ELSE v.votes END) AS votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser LEFT JOIN (SELECT idquestion, SUM(vote) AS votes FROM VoteQuestion GROUP BY idquestion) v ON q.idquestion = v.idquestion WHERE q.iduser = "' + user_id + '"')
 
     def _edit(self, question_title, question_description, question_id):
         return self.db.sql('UPDATE Question SET title="' + question_title + '", description="' + question_description + '" WHERE idquestion = "' + str(question_id) + '"')
