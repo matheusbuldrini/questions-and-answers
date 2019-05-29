@@ -49,11 +49,11 @@
 		<div class="card-body" id="answer">
 			<!--blockquote class="blockquote blockquote-primary mb-0"-->
 				<p class="card-text">{{ resp.description }}</p>
-				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" vote="1" id="answer-upvote_{{resp.idanswer}}" >
+				<button class="btn btn-primary btn-icon btn-round" question="{{pergunta_id}}" answer="{{resp.idanswer}}" vote="1" id="answer-upvote_{{resp.idanswer}}" >
 				  <i class="now-ui-icons arrows-1_minimal-up"></i>
 				</button>
 				<span id="answer-votes_{{resp.idanswer}}">{{ resp.rating }}</span>
-				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" vote="-1" id="answer-downvote_{{resp.idanswer}}">
+				<button class="btn btn-primary btn-icon btn-round" question="{{pergunta_id}}" answer="{{resp.idanswer}}" vote="-1" id="answer-downvote_{{resp.idanswer}}">
 				  <i class="now-ui-icons arrows-1_minimal-down"></i>
 				</button>
 				<button class="btn btn-primary btn-outline-primary btn-round">

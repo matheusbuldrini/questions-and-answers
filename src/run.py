@@ -79,6 +79,7 @@ def votar_resposta():
             question_id = request.json['idquestion']
             answer_id = request.json['idanswer']
             answer_vote = request.json['vote']
+            #print(question_id + '>>' + answer_id + '>>' + answer_vote)
             voteanswer = VoteAnswer.VoteAnswer()
             if voteanswer.validate_vote(answer_id, str(session.get('logged_user_id')), answer_vote):
                 return redirect(url_for('pergunta', pergunta_id=question_id))

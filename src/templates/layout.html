@@ -12,6 +12,8 @@
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <script src="{{ url_for('static', filename='js/core/jquery.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='js/vote-question.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='js/vote-answer.js') }}" type="text/javascript"></script>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -46,68 +48,6 @@
 
   	  }
     </style>
-    <script>
-    $(document).ready(function(){
-      if({{session['logged_user_id']}}){
-        $("#question button").click(function(){
-          var vote = parseInt($(this).attr("vote"));
-          if(vote){
-            var id = parseInt($(this).attr("question"));
-            var total = parseInt($("#question-votes_"+id).text());
-            $("#question-votes_"+id).html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-            $.ajax({
-              type : "POST",
-              dataType : "text",
-              url : "{{url_for('votar_pergunta')}}",
-              contentType: "application/json; charset=utf-8",
-              data : JSON.stringify({"id":""+id+"", "vote":""+vote+""}),
-              success: function(data, textStatus, jQxhr){
-                if(vote == 1)
-                  $("#question-upvote_"+id).css("background","green");
-                else
-                  $("#question-downvote_"+id).css("background","red");
-                $("#question-votes_"+id).val(vote+total);
-                $("#question-votes_"+id).html($("#question-votes_"+id).val());
-                $("#question-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
-              },
-              error: function(jqXhr, textStatus, errorThrown){
-                $("#question-votes_"+id).html(total);
-                $("#question-msg_"+id).html("Algo deu errado! Você já votou nessa pergunta.");
-              }
-            });
-          }
-        });
-        $("#answer button").click(function () {
-          var vote = parseInt($(this).attr("vote"));
-          if(vote){
-            var id = parseInt($(this).attr("answer"));
-            var total = parseInt($("#answer-votes_"+id).text());
-            $("#answer-votes_"+id).html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-            $.ajax({
-              type : "POST",
-              dataType : "text",
-              url : "{{url_for('votar_resposta')}}",
-              contentType: "application/json; charset=utf-8",
-              data : JSON.stringify({"idquestion":"{{pergunta_id}}","idanswer":""+id+"", "vote":""+vote+""}),
-              success: function(data, textStatus, jQxhr){
-                if(vote == 1)
-                  $("#answer-upvote_"+id).css("background","green");
-                else
-                  $("#answer-downvote_"+id).css("background","red");
-                $("#answer-votes_"+id).val(vote+total);
-                $("#answer-votes_"+id).html($("#answer-votes_"+id).val());
-                $("#answer-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
-              },
-              error: function(jqXhr, textStatus, errorThrown){
-                $("#answer-votes_"+id).html(total);
-                $("#answer-msg_"+id).html("Algo deu errado! Você já votou nessa resposta.");
-              }
-            });
-          }
-        }); 
-      }
-    });
-  </script>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
