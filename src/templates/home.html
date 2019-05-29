@@ -15,6 +15,11 @@
 			<button class="btn btn-primary btn-outline-primary btn-round">
 				{{ perg.fullname }}
 			</button>
+      {% for tag in perg.tags %}
+      <button class="btn btn-primary btn-outline-primary btn-round">
+					{{ tag }}
+			</button>
+      {% endfor %}
 		</div>
 		</a>
 		{% endfor %}

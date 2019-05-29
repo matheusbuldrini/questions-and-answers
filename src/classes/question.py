@@ -2,6 +2,8 @@ from classes.database import Database
 from classes.answer import Answer
 from classes.votequestion import VoteQuestion
 from classes.utils import Utils
+import json
+
 
 class Question:
 
@@ -26,9 +28,10 @@ class Question:
     def _edit(self, question_title, question_description, question_id):
         return self.db.sql('UPDATE Question SET title="' + question_title + '", description="' + question_description + '" WHERE idquestion = "' + str(question_id) + '"')
 
-    def _insert(self, question_title, question_description, question_id_user):
-        return self.db.sql('INSERT INTO Question(title, description, iduser) VALUES ("' + question_title
-                           + '", "' + question_description + '", "' + str(question_id_user) + '")')
+    def _insert(self, question_title, question_description, question_id_user, question_tag):
+        json_tag = json.dumps(question_tag)
+        print('INSERT INTO Question(title, description, iduser, tags) VALUES ("' + question_title + '", "' + question_description + '", "' + str(question_id_user) + '", "' + str({"1": "xxx", "2": "yyyy"}) + '")')
+        return self.db.sql('INSERT INTO Question(title, description, iduser, tags) VALUES ("' + question_title + '", "' + question_description + '", "' + str(question_id_user) + '", "' + str({"1": "xxx", "2": "yyyy"}) + '")')
 
     def _delete(self, question_id, user_id):
         return self.db.sql('DELETE FROM Question WHERE idquestion = ' + str(question_id) + ' AND iduser = ' + str(user_id))
@@ -51,13 +54,13 @@ class Question:
     def get_by_title(self, title_search):
         return self._select_question_by_title(title_search)
 
-    def validate_question_post(self, title, description, user_id, question_id):
-        if not self.utils.validate_not_empty([title, description, user_id]):
+    def validate_question_post(self, title, description, user_id, tag, question_id):
+        if not self.utils.validate_not_empty([title, description, user_id, tag]):
             return False
         if user_id:
             if question_id:
                 return self._edit(title, description, question_id)
             else:
-                return self._insert(title, description, user_id)
+                return self._insert(title, description, user_id, tag)
         else:
             return False

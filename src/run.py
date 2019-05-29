@@ -5,6 +5,7 @@
 
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 import os
+import json
 import classes.user as User
 import classes.answer as Answer
 import classes.question as Question
@@ -26,6 +27,8 @@ utils = Utils.Utils()
 def home():
     question = Question.Question()
     perguntas = question.get_all()
+    # perguntas = [{'idquestion': 1, 'title': 'Why?', 'description': 'hihi', 'data': '2017',
+    #               'fullname': 'Effy', 'tags': ['linux', 'arch']}]
     return render_template('home.html', perguntas=perguntas)
 
 @app.route('/popup')
@@ -79,7 +82,7 @@ def votar_resposta():
             voteanswer = VoteAnswer.VoteAnswer()
             if voteanswer.validate_vote(answer_id, str(session.get('logged_user_id')), answer_vote):
                 return redirect(url_for('pergunta', pergunta_id=question_id))
-		
+
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
@@ -101,7 +104,12 @@ def fazer_pergunta():
     else:
         if request.method == 'POST':
             question = Question.Question()
-            if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id'), False):
+            tags = request.form['tag'].split(',')
+
+            dict_tag = {'Tags': dict(('tag ' + str(i), item) for i, item in enumerate(tags))}
+            dict_tag = json.dumps(dict_tag)
+
+            if question.validate_question_post(request.form['title'], request.form['body'], session.get('logged_user_id'), dict_tag, False):
                 utils.set_alert('success', 'Pergunta postada!')
                 return redirect(url_for('home'))
             else:
