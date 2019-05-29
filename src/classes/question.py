@@ -14,10 +14,10 @@ class Question:
         self.utils = Utils()
 
     def _select_all(self):
-        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser ORDER BY data DESC')
+        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, (CASE WHEN v.votes IS NULL THEN 0 ELSE v.votes END) AS votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser LEFT JOIN (SELECT idquestion, SUM(vote) AS votes FROM VoteQuestion GROUP BY idquestion) v ON q.idquestion = v.idquestion ORDER BY data DESC')
 
     def _select_question_by_title(self, question_title):
-        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser WHERE q.title LIKE "%' + question_title + '%"')
+        return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, (CASE WHEN v.votes IS NULL THEN 0 ELSE v.votes END) AS votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser LEFT JOIN (SELECT idquestion, SUM(vote) AS votes FROM VoteQuestion GROUP BY idquestion) v ON q.idquestion = v.idquestion WHERE q.title LIKE "%' + question_title + '%"')
 
     def get_by_id(self, question_id):
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, (CASE WHEN v.votes IS NULL THEN 0 ELSE v.votes END) AS votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser, (SELECT SUM(vote) AS votes FROM VoteQuestion WHERE idquestion="'+str(question_id)+'") v WHERE q.idquestion = "' + str(question_id) + '"')[0]

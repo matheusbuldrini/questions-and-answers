@@ -1,76 +1,15 @@
 {% extends "layout.html" %}
 {% set active_page = "pergunta" %}
 {% block content %}
-	<script>
-		$(document).ready(function(){
-			if({{usuario_logado}}){
-				$("#question button").click(function(){
-				  var vote = parseInt($(this).attr("vote"));
-				  if(vote){
-					  var total = parseInt($("#question-votes").text());
-					  $("#question-votes").html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-					  $.ajax({
-					    type : "POST",
-					    dataType : "text",
-					    url : "{{url_for('votar_pergunta')}}",
-					    contentType: "application/json; charset=utf-8",
-					    data : JSON.stringify({"id":"{{pergunta_id}}", "vote":""+vote+""}),
-					    success: function(data, textStatus, jQxhr){
-					      if(vote == 1)
-					    	$("#question-upvote").css("background","green");
-					      else
-					      	$("#question-downvote").css("background","red");
-					      $("#question-votes").val(vote+total);
-					      $("#question-votes").html($("#question-votes").val());
-					      $("#question-msg").html("Tudo certo! O voto foi computado com sucesso.");
-					    },
-					    error: function(jqXhr, textStatus, errorThrown){
-					      $("#question-votes").html(total);
-					      $("#question-msg").html("Algo deu errado! Você já votou nessa pergunta.");
-					    }
-					  });
-					}
-				});
-				$("#answer button").click(function () {
-				  var vote = parseInt($(this).attr("vote"));
-				  if(vote){
-					  var id = parseInt($(this).attr("answer"));
-					  var total = parseInt($("#answer-votes_"+id).text());
-					  $("#answer-votes_"+id).html('<img src="{{ url_for("static", filename="img/loading.gif") }}" />');
-					  $.ajax({
-					    type : "POST",
-					    dataType : "text",
-					    url : "{{url_for('votar_resposta')}}",
-					    contentType: "application/json; charset=utf-8",
-					    data : JSON.stringify({"idquestion":"{{pergunta_id}}","idanswer":""+id+"", "vote":""+vote+""}),
-					    success: function(data, textStatus, jQxhr){
-					      if(vote == 1)
-					    	$("#answer-upvote_"+id).css("background","green");
-					      else
-					      	$("#answer-downvote_"+id).css("background","red");
-					      $("#answer-votes_"+id).val(vote+total);
-					      $("#answer-votes_"+id).html($("#answer-votes_"+id).val());
-					      $("#answer-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
-					    },
-					    error: function(jqXhr, textStatus, errorThrown){
-					      $("#answer-votes_"+id).html(total);
-					      $("#answer-msg_"+id).html("Algo deu errado! Você já votou nessa resposta.");
-					    }
-					  });
-					}
-				});	
-			}
-		});
-	</script>
 	<div class="card">
 	<div class="card-body" id="question">
 		<h2 class="card-title">{{ pergunta_title }}</h2>
 		<p class="card-text">{{ pergunta_desc }} </p>
-		<button class="btn btn-primary btn-icon btn-round" vote="1" id="question-upvote">
+		<button class="btn btn-primary btn-icon btn-round" vote="1" id="question-upvote_{{ pergunta_id }}" question="{{ pergunta_id }}">
 			<i class="now-ui-icons arrows-1_minimal-up"></i>
 		</button>
-		<span id="question-votes">{{ pergunta_votes }}</span>
-		<button class="btn btn-primary btn-icon btn-round" vote="-1" id="question-downvote">
+		<span id="question-votes_{{ pergunta_id }}">{{ pergunta_votes }}</span>
+		<button class="btn btn-primary btn-icon btn-round" vote="-1" id="question-downvote_{{ pergunta_id }}" question="{{ pergunta_id }}">
 			<i class="now-ui-icons arrows-1_minimal-down"></i>
 		</button>
 		<button class="btn btn-primary btn-outline-primary btn-round">
@@ -79,7 +18,7 @@
 		<button class="btn btn-primary btn-outline-primary btn-round">
 			{{ pergunta_fullname }}
 		</button>
-		<span id="question-msg"></span>
+		<span id="question-msg_{{ pergunta_id }}"></span>
 	</div>
 	</div>
 
@@ -110,11 +49,11 @@
 		<div class="card-body" id="answer">
 			<!--blockquote class="blockquote blockquote-primary mb-0"-->
 				<p class="card-text">{{ resp.description }}</p>
-				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" color="green" vote="1" id="answer-upvote_{{resp.idanswer}}" >
+				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" vote="1" id="answer-upvote_{{resp.idanswer}}" >
 				  <i class="now-ui-icons arrows-1_minimal-up"></i>
 				</button>
 				<span id="answer-votes_{{resp.idanswer}}">{{ resp.rating }}</span>
-				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" color="red" vote="-1" id="answer-downvote_{{resp.idanswer}}">
+				<button class="btn btn-primary btn-icon btn-round" answer="{{resp.idanswer}}" vote="-1" id="answer-downvote_{{resp.idanswer}}">
 				  <i class="now-ui-icons arrows-1_minimal-down"></i>
 				</button>
 				<button class="btn btn-primary btn-outline-primary btn-round">
