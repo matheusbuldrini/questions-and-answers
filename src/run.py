@@ -137,7 +137,11 @@ def editar_pergunta(pergunta_id):
     question = Question.Question()
     pergunta = question.get_by_id(str(pergunta_id))
     if request.method == 'POST':
-        if question.validate_question_post(request.form['title'], request.form['description'], session.get('logged_user_id'), str(pergunta_id)):
+        tags = request.form['tag'].split(',')
+        dict_tag = {'Tags': dict(('tag ' + str(i), item) for i, item in enumerate(tags))}
+        dict_tag = json.dumps(dict_tag)
+
+        if question.validate_question_post(request.form['title'], request.form['description'], session.get('logged_user_id'), dict_tag, str(pergunta_id)):
             utils.set_alert('success', 'Pergunta editada!')
             return redirect(url_for('minhas_perguntas'))
         else:

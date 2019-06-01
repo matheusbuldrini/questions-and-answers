@@ -28,10 +28,13 @@ class Question:
     def get_by_tag(self, question_tag):
         return self.db.query('SELECT u.fullname, q.idquestion, q.iduser, q.title, q.description, q.tags, (CASE WHEN v.votes IS NULL THEN 0 ELSE v.votes END) AS votes, DATE_FORMAT(q.data, "%d/%m/%Y %H:%i:%s") AS data FROM Question q INNER JOIN User u ON q.iduser = u.iduser LEFT JOIN (SELECT idquestion, SUM(vote) AS votes FROM VoteQuestion GROUP BY idquestion) v ON q.idquestion = v.idquestion WHERE q.tags LIKE "%' + question_tag + '%"')
 
-    def _edit(self, question_title, question_description, question_id):
-        return self.db.sql('UPDATE Question SET title="' + question_title + '", description="' + question_description + '" WHERE idquestion = "' + str(question_id) + '"')
+    def _edit(self, question_title, question_description, question_id, question_tag):
+        print(question_tag + 'hihi')
+        print("UPDATE Question SET title='" + question_title + "', description='" + question_description  + "', tags='" + question_tag + "' WHERE idquestion = '" + str(question_id) + "'")
+        return self.db.sql('UPDATE Question SET title="' + question_title + '", description="' + question_description  + '", tags="' + question_tag + '" WHERE idquestion = "' + str(question_id) + '"')
 
     def _insert(self, question_title, question_description, question_id_user, question_tag):
+        print(("INSERT INTO Question(title, description, iduser, tags) VALUES ('" + question_title + "', '" + question_description + "', '" + str(question_id_user) + "', '"+question_tag+"')"))
         return self.db.sql("INSERT INTO Question(title, description, iduser, tags) VALUES ('" + question_title + "', '" + question_description + "', '" + str(question_id_user) + "', '"+question_tag+"')")
 
     def _delete(self, question_id, user_id):
@@ -60,7 +63,7 @@ class Question:
             return False
         if user_id:
             if question_id:
-                return self._edit(title, description, question_id)
+                return self._edit(title, description, question_id, tag)
             else:
                 return self._insert(title, description, user_id, tag)
         else:
