@@ -30,8 +30,8 @@ class Question:
 
     def _edit(self, question_title, question_description, question_id, question_tag):
         print(question_tag + 'hihi')
-        print("UPDATE Question SET title='" + question_title + "', description='" + question_description  + "', tags='" + question_tag + "' WHERE idquestion = '" + str(question_id) + "'")
-        return self.db.sql('UPDATE Question SET title="' + question_title + '", description="' + question_description  + '", tags="' + question_tag + '" WHERE idquestion = "' + str(question_id) + '"')
+        print("UPDATE Question SET title='" + question_title + "', description='" + question_description  + "', tags='" + question_tag + "' WHERE idquestion = " + str(question_id))
+        return self.db.sql("UPDATE Question SET title='" + question_title + "', description='" + question_description  + "', tags='" + question_tag + "' WHERE idquestion = " + str(question_id))
 
     def _insert(self, question_title, question_description, question_id_user, question_tag):
         print(("INSERT INTO Question(title, description, iduser, tags) VALUES ('" + question_title + "', '" + question_description + "', '" + str(question_id_user) + "', '"+question_tag+"')"))
