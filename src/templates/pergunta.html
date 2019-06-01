@@ -18,6 +18,11 @@
 		<button class="btn btn-primary btn-outline-primary btn-round">
 			{{ pergunta_fullname }}
 		</button>
+    {%for tag in pergunta_tag%}
+        <a href="/perguntas-por-tag/{{ tag }}">
+         	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
+        </a>
+    {% endfor %}
 		<span id="question-msg_{{ pergunta_id }}"></span>
 	</div>
 	</div>

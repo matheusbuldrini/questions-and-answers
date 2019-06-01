@@ -27,8 +27,13 @@ utils = Utils.Utils()
 def home():
     question = Question.Question()
     perguntas = question.get_all()
-    # perguntas = [{'idquestion': 1, 'title': 'Why?', 'description': 'hihi', 'data': '2017',
-    #               'fullname': 'Effy', 'tags': ['linux', 'arch']}]
+    for perg in perguntas:
+        perg['tags'] = json.loads(perg['tags'])
+        try:
+            perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
+        except:
+            perg['tags'] = ['null']
+
     return render_template('home.html', perguntas=perguntas)
 
 @app.route('/popup')
@@ -39,6 +44,12 @@ def popup(msg="Erro", links=[{'url': '/home', 'text': 'Home'}]):
 def pergunta(pergunta_id):
     question = Question.Question()
     pergunta = question.get_by_id(str(pergunta_id))
+    pergunta['tags'] = json.loads(pergunta['tags'])
+    print(pergunta['tags'])
+    try:
+        pergunta['tags'] = [p for key, p in pergunta['tags']['Tags'].items()]
+    except:
+        pergunta['tags'] = ['null']
     if request.method == 'POST':
         answer = Answer.Answer()
         if session['logged_user_id']:
@@ -56,7 +67,8 @@ def pergunta(pergunta_id):
                                pergunta_fullname = str(pergunta['fullname']),
                                pergunta_title = str(pergunta['title']),
                                pergunta_data = str(pergunta['data']),
-                               pergunta_desc = str(pergunta['description']))
+                               pergunta_desc = str(pergunta['description']),
+                               pergunta_tag = pergunta['tags'])
 
 @app.route("/pergunta-votar", methods=['POST'])
 def votar_pergunta():
@@ -182,6 +194,14 @@ def minhas_perguntas():
     else:
         question = Question.Question()
         perguntas = question.get_by_user(str(session.get('logged_user_id')))
+
+        for perg in perguntas:
+            perg['tags'] = json.loads(perg['tags'])
+            try:
+                perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
+            except:
+                perg['tags'] = ['null']
+
         return render_template('minhas-perguntas.html', perguntas=perguntas)
 
 @app.route("/minhas-respostas")
@@ -232,6 +252,21 @@ def remover_resposta_confirmado(resposta_id):
         Answer.Answer().remove(resposta_id, str(session.get('logged_user_id')))
         utils.set_alert('success', 'Resposta removida!')
     return redirect(url_for('minhas_respostas'))
+
+@app.route("/perguntas-por-tag/<tag>/")
+def perguntas_por_tag(tag):
+    question = Question.Question()
+    perguntas = question.get_by_tag(str(tag))
+    print(perguntas)
+
+    for perg in perguntas:
+        perg['tags'] = json.loads(perg['tags'])
+        try:
+            perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
+        except:
+            perg['tags'] = ['null']
+
+    return render_template('perguntas-por-tag.html', perguntas=perguntas, tag=tag)
 
 
 @app.route("/pesquisar", methods=['POST'])

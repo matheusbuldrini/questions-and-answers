@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
-{% set active_page = "minhas-perguntas" %}
+{% set active_page = "perguntas-por-tag" %}
 {% block content %}
 
-        <h2>Minhas Perguntas</h2>
+        <h2>Perguntas com a tag {{ tag }}</h2>
 
 		{% for perg in perguntas %}
 		<div class="card">
@@ -24,17 +24,9 @@
 			<button class="btn btn-primary btn-outline-primary btn-round">
 				{{ perg.fullname }}
 			</button>
-			<a href="/editar-pergunta/{{ perg.idquestion }}">
-				<button class="btn btn-primary btn-outline btn-round">Editar</button>
-			</a>
-			<a href="/remover-pergunta/{{ perg.idquestion }}">
-				<button class="btn btn-danger btn-primary btn-outline btn-round">Deletar</button>
-			</a>
 			<span id="question-msg_{{ perg.idquestion }}"></span>
 	      {% for tag in perg.tags %}
-        <a href="/perguntas-por-tag/{{ tag }}">
-         	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
-        </a>
+	     	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
 	      {% endfor %}
 		</div>
 		</div>
