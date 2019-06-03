@@ -15,14 +15,18 @@ $(document).ready(function(){
             if(vote == 1)
               $("#question-upvote_"+id).css("background","green");
             else
-              $("#question-downvote_"+id).css("background","red");
+              $("#question-downvote_"+id).css("background","green");
             $("#question-votes_"+id).val(vote+total);
             $("#question-votes_"+id).html($("#question-votes_"+id).val());
-            $("#question-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
+            $("#question-msg_"+id).html("<div class='alert alert-success' role='alert'>Tudo certo! O voto foi computado com sucesso.<div>");
           },
           error: function(jqXhr, textStatus, errorThrown){
+            if(vote == 1)
+              $("#question-upvote_"+id).css("background","red");
+            else
+              $("#question-downvote_"+id).css("background","red");
             $("#question-votes_"+id).html(total);
-            $("#question-msg_"+id).html("Algo deu errado! Você já votou nessa pergunta.");
+            $("#question-msg_"+id).html("<div class='alert alert-danger' role='alert'>Algo deu errado! Você já votou nessa pergunta.<div>");
           }
         });
       }

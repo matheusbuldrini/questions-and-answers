@@ -23,8 +23,8 @@
          	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
         </a>
     {% endfor %}
-		<span id="question-msg_{{ pergunta_id }}"></span>
 	</div>
+	<span id="question-msg_{{ pergunta_id }}"></span>
 	</div>
 
 	{% if session['logged_user_id'] %}
@@ -67,9 +67,9 @@
 				<button class="btn btn-primary btn-outline-primary btn-round">
 					{{ resp.user_fullname }}
 				</button>
-				<span id="answer-msg_{{resp.idanswer}}"></span>
 			<!--/blockquote-->
 		</div>
+		<span id="answer-msg_{{resp.idanswer}}"></span>
 		</div>
     {% endfor %}
 {% endblock %}

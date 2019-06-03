@@ -24,12 +24,13 @@
 			<button class="btn btn-primary btn-outline-primary btn-round">
 				{{ perg.fullname }}
 			</button>
-			<span id="question-msg_{{ perg.idquestion }}"></span>
-
-	      {% for tag in perg.tags %}
+			{% for tag in perg.tags %}
+	      	<a href="/perguntas-por-tag/{{ tag }}">
 	     	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
+	     	</a>
 	      {% endfor %}
 		</div>
+		<span id="question-msg_{{ perg.idquestion }}"></span>
 		</div>
 		{% endfor %}
 

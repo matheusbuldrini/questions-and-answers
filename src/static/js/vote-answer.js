@@ -16,14 +16,18 @@ $(document).ready(function(){
             if(vote == 1)
               $("#answer-upvote_"+id).css("background","green");
             else
-              $("#answer-downvote_"+id).css("background","red");
+              $("#answer-downvote_"+id).css("background","green");
             $("#answer-votes_"+id).val(vote+total);
             $("#answer-votes_"+id).html($("#answer-votes_"+id).val());
-            $("#answer-msg_"+id).html("Tudo certo! O voto foi computado com sucesso.");
+            $("#answer-msg_"+id).html("<div class='alert alert-success' role='alert'>Tudo certo! O voto foi computado com sucesso.<div>");
           },
           error: function(jqXhr, textStatus, errorThrown){
+            if(vote == 1)
+              $("#answer-upvote_"+id).css("background","red");
+            else
+              $("#answer-downvote_"+id).css("background","red");
             $("#answer-votes_"+id).html(total);
-            $("#answer-msg_"+id).html("Algo deu errado! Você já votou nessa resposta.");
+            $("#answer-msg_"+id).html("<div class='alert alert-danger' role='alert'>Algo deu errado! Você já votou nessa resposta.<div>");
           }
         });
       }

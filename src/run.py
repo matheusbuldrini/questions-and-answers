@@ -150,6 +150,7 @@ def editar_pergunta(pergunta_id):
         if(int((pergunta['iduser'])) == int(session['logged_user_id'])):
             return render_template('editar-pergunta.html', pergunta_id=pergunta_id,
                                    pergunta_title = str(pergunta['title']),
+                                   #pergunta_tags = str(pergunta['tags']),
                                    pergunta_desc = str(pergunta['description']))
         else:
             return redirect(url_for('home'))
@@ -261,7 +262,6 @@ def remover_resposta_confirmado(resposta_id):
 def perguntas_por_tag(tag):
     question = Question.Question()
     perguntas = question.get_by_tag(str(tag))
-    print(perguntas)
 
     for perg in perguntas:
         perg['tags'] = json.loads(perg['tags'])
@@ -278,6 +278,14 @@ def pesquisar():
     if request.method == 'POST':
         question = Question.Question()
         perguntas = question.get_by_title(request.form['pesquisa'])
+
+        for perg in perguntas:
+            perg['tags'] = json.loads(perg['tags'])
+            try:
+                perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
+            except:
+                perg['tags'] = ['null']
+
         return render_template('pesquisa.html', perguntas=perguntas)
 
 @app.route("/login", methods=['GET', 'POST'])
