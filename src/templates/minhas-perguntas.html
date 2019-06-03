@@ -11,31 +11,23 @@
 				<h4 class="card-subtitle">{{ perg.title }}</h4>
 				<p class="card-text">{{ perg.description }} </p>
 			</a>
-			<button class="btn btn-primary btn-icon btn-round" vote="1" id="question-upvote_{{ perg.idquestion }}" question="{{ perg.idquestion}}">
-				<i class="now-ui-icons arrows-1_minimal-up"></i>
-			</button>
-			<span id="question-votes_{{ perg.idquestion }}">{{ perg.votes }}</span>
-			<button class="btn btn-primary btn-icon btn-round" vote="-1" id="question-downvote_{{ perg.idquestion }}" question="{{ perg.idquestion }}">
-				<i class="now-ui-icons arrows-1_minimal-down"></i>
-			</button>
 			<button class="btn btn-primary btn-outline-primary btn-round">
 					{{ perg.data }}
 			</button>
 			<button class="btn btn-primary btn-outline-primary btn-round">
 				{{ perg.fullname }}
 			</button>
+			{% for tag in perg.tags %}
+        	<a href="/perguntas-por-tag/{{ tag }}">
+         	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
+        	</a>
+	      	{% endfor %}
 			<a href="/editar-pergunta/{{ perg.idquestion }}">
 				<button class="btn btn-primary btn-outline btn-round">Editar</button>
 			</a>
 			<a href="/remover-pergunta/{{ perg.idquestion }}">
 				<button class="btn btn-danger btn-primary btn-outline btn-round">Deletar</button>
 			</a>
-			<span id="question-msg_{{ perg.idquestion }}"></span>
-	      {% for tag in perg.tags %}
-        <a href="/perguntas-por-tag/{{ tag }}">
-         	 <button class="btn btn-primary btn-outline-primary btn-round">{{ tag }}</button>
-        </a>
-	      {% endfor %}
 		</div>
 		</div>
 		{% endfor %}
