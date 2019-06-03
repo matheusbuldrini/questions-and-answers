@@ -32,7 +32,7 @@ def home():
         try:
             perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
         except:
-            perg['tags'] = ['null']
+            perg['tags'] = ""
 
     return render_template('home.html', perguntas=perguntas)
 
@@ -49,7 +49,7 @@ def pergunta(pergunta_id):
     try:
         pergunta['tags'] = [p for key, p in pergunta['tags']['Tags'].items()]
     except:
-        pergunta['tags'] = ['null']
+        pergunta['tags'] = ""
     if request.method == 'POST':
         answer = Answer.Answer()
         if session['logged_user_id']:
@@ -91,7 +91,6 @@ def votar_resposta():
             question_id = request.json['idquestion']
             answer_id = request.json['idanswer']
             answer_vote = request.json['vote']
-            #print(question_id + '>>' + answer_id + '>>' + answer_vote)
             voteanswer = VoteAnswer.VoteAnswer()
             if voteanswer.validate_vote(answer_id, str(session.get('logged_user_id')), answer_vote):
                 return redirect(url_for('pergunta', pergunta_id=question_id))
@@ -208,7 +207,7 @@ def minhas_perguntas():
             try:
                 perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
             except:
-                perg['tags'] = ['null']
+                perg['tags'] = ""
 
         return render_template('minhas-perguntas.html', perguntas=perguntas)
 
@@ -271,7 +270,7 @@ def perguntas_por_tag(tag):
         try:
             perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
         except:
-            perg['tags'] = ['null']
+            perg['tags'] = ""
 
     return render_template('perguntas-por-tag.html', perguntas=perguntas, tag=tag)
 
@@ -287,7 +286,7 @@ def pesquisar():
             try:
                 perg['tags'] = [p for key, p in perg['tags']['Tags'].items()]
             except:
-                perg['tags'] = ['null']
+                perg['tags'] = ""
 
         return render_template('pesquisa.html', perguntas=perguntas)
 
