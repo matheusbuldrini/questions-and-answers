@@ -34,6 +34,8 @@ class User:
         return self.db.sql('UPDATE User SET password="' + self.utils.md5(password) + '" WHERE iduser = "' + str(userid) + '"')
 
     def _delete(self, user_id):
+        self.db.sql('DELETE FROM VoteAnswer WHERE iduser = "' + str(user_id) + '"')
+        self.db.sql('DELETE FROM VoteQuestion WHERE iduser = "' + str(user_id) + '"')
         self.db.sql('DELETE FROM Answer WHERE iduser = "' + str(user_id) + '"')
         self.db.sql('DELETE a FROM Answer a INNER JOIN Question q ON a.idquestion = q.idquestion WHERE q.iduser = "' + str(user_id) + '"')
         self.db.sql('DELETE FROM Question WHERE iduser = "' + str(user_id) + '"')
