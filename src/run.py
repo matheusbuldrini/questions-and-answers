@@ -137,7 +137,10 @@ def editar_pergunta(pergunta_id):
     question = Question.Question()
     pergunta = question.get_by_id(str(pergunta_id))
     if request.method == 'POST':
-        tags = request.form['tag'].split(',')
+        if request.form['tag']:
+            tags = request.form['tag'].split(',')
+        else:
+            tags = ""
         dict_tag = {'Tags': dict(('tag ' + str(i), item) for i, item in enumerate(tags))}
         dict_tag = json.dumps(dict_tag)
 
