@@ -4,6 +4,11 @@
  - Fernanda Fenelon
  - Fernanda Guimarães
  - Eduardo Oliveira
+ 
+ ![](https://raw.githubusercontent.com/matheusbuldrini/questions-and-answers/master/readme/screenshot1.png)
+ ![](https://raw.githubusercontent.com/matheusbuldrini/questions-and-answers/master/readme/screenshot2.png)
+ ![](https://raw.githubusercontent.com/matheusbuldrini/questions-and-answers/master/readme/screenshot3.png)
+ ![](https://raw.githubusercontent.com/matheusbuldrini/questions-and-answers/master/readme/screenshot4.png)
 
 ## Gestão de Tarefas
 https://github.com/matheusbuldrini/eswqa/projects/1
