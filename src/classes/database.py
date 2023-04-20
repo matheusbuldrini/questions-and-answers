@@ -1,25 +1,13 @@
 #!/usr/bin/env python3
-
-# Username: h0X0rG27Cf
-# Password: X5vM8SVTEO
-# Database Name: h0X0rG27Cf
-# Server: remotemysql.com
-# Port: 3306
-
-# Server: sql10.freemysqlhosting.net
-# Name: sql10288957
-# Username: sql10288957
-# Password: jervEuXDVq
-# Port number: 3306
 import pymysql
 
 
 class Database:
     def __init__(self):
-        host = "remotemysql.com"
-        user = "h0X0rG27Cf"
-        password = "X5vM8SVTEO"
-        db = "h0X0rG27Cf"
+        host = "localhost"
+        user = "root"
+        password = ""
+        db = "qea"
         self.con = pymysql.connect(host=host,
                                    user=user,
                                    password=password,
